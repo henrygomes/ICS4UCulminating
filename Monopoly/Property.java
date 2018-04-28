@@ -7,5 +7,10 @@
  */
 public class Property extends Space
 {
+   public static int player;
+   public static int location;
+   public static double cost;
+   public static double 
+   
    
 }
