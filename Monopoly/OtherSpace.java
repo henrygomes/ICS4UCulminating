@@ -7,5 +7,6 @@
  */
 public class OtherSpace extends Space
 {
+   public int typeOfCard;//type of card to pick up, 0 if none
    
 }

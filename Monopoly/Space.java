@@ -7,5 +7,17 @@
  */
 abstract class Space
 {
-
+    private int location;
+    private String name;
+    
+    
+    public int getLoc()
+    {
+        return location;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
 }
