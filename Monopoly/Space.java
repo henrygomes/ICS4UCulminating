@@ -7,5 +7,5 @@
  */
 abstract class Space
 {
-   
+
 }
