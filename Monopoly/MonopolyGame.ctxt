@@ -1,4 +1,16 @@
 #BlueJ class context
 comment0.target=MonopolyGame
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ MonopolyGame\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-numComments=1
+comment1.params=
+comment1.target=MonopolyGame()
+comment2.params=numOfPlayers
+comment2.target=void\ turn(int)
+comment3.params=
+comment3.target=int\ roll()
+comment4.params=space
+comment4.target=void\ land(int)
+comment5.params=
+comment5.target=void\ boardCreation()
+comment6.params=board
+comment6.target=void\ print(Space[])
+numComments=7
