@@ -10,7 +10,7 @@ abstract class Space
     private int location;
     private String name;
     
-    
+    //test
     public int getLoc()
     {
         return location;
