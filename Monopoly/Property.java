@@ -7,13 +7,32 @@
  */
 public class Property extends Space
 {
-    public static int player;
-    public static double price;
-    public static double rent;
-    public static double motgageValue;
-    public Property(int location, double price, String name, double rent,double mortgageValue )
+    private static int player;
+    private static double price;
+    private static double rent;
+    private static double mortgageValue;
+    public Property(String name, int location, double price,  double rent,double mortgageValue, char colour)
     {
         //creating thing
     }
     
+    public int getPlayer()
+    {
+        return player;
+    }
+    
+    public double getPrice()
+    {
+        return price;
+    }
+    
+    public double getRent()
+    {
+        return rent;
+    }
+    
+    public double getMortgage()
+    {
+        return mortgageValue;
+    }
 }
