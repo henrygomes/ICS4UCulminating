@@ -35,9 +35,7 @@ public class Property extends Space
     }
     
     //public double getRent(int roll)
-    {
-        
-    }
+
     public double getMortgage()
     {
         return mortgageValue;

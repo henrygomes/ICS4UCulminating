@@ -34,10 +34,10 @@ public class MonopolyGame implements Game
                 currentPlayer++;
                 if (currentPlayer >= players.length)
                     currentPlayer = currentPlayer- playerNum;
-                
+
             }
             else
-            System.out.println ("error with somethin' IAN DISPLAY SOMETHING");//display error
+                System.out.println ("error with somethin' IAN DISPLAY SOMETHING");//display error
         }
         //how many players?
         //initializing players
@@ -56,12 +56,29 @@ public class MonopolyGame implements Game
         int moves = roll1+roll2;
         int playerLoc = players[player].move(moves);
 
-        if (board[playerLoc].equals("Property"))
+        if (board[playerLoc] instanceof Property)
         {
-            System.out.println ("Loc: " + board[playerLoc].getLoc());
+            if (board[playerLoc].getPlayer()!= null)
+            {
+                //pay player
+            }
+            else
+            {
+                //do you want to buy this?
+            }
         }
-        //check actions
-        //ask for purchasing
+        else
+        {
+            if (Math.abs(board[playerLoc].getTax()) > 0)
+            {
+                //give money
+            }
+            else if (board[playerLoc].getCardValue()>0)
+            {
+                //give card
+            }
+        }
+        //do you want to add houses, mortgage, trading anything
         //ask for houses, mortgage property. trades
         return true;
     }
@@ -75,7 +92,7 @@ public class MonopolyGame implements Game
 
     //public static boolean land (int space, Player player, int roll)
     {
-        
+
         //when player lands: do you want to buy property?, do you have to pay someone?     
         //return true;
     }
