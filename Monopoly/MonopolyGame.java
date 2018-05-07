@@ -31,7 +31,7 @@ public class MonopolyGame implements Game
                 
             }
             else
-            /error
+            1+1;//display error
         }
         //how many players?
         //initializing players
