@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Property
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Property\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=name\ location\ price\ rent\ mortgageValue\ colour
+comment1.params=name\ loc\ cost\ rent\ mortgage\ colour
 comment1.target=Property(java.lang.String,\ int,\ double,\ double,\ double,\ char)
 comment2.params=
 comment2.target=int\ getPlayer()

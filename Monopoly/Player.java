@@ -7,27 +7,41 @@
  */
 public class Player
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Player
-     */
-    public Player()
+    private String name;
+    private double money;
+    private int location = 0;
+    private Property[] properties;
+    
+    public Player(String name, double money)
     {
-        // initialise instance variables
-        x = 0;
+        this.name = name;
+        
+        this.money = money;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
+    
+    public String getName()
     {
-        // put your code here
-        return x + y;
+        return name;
+    }
+    
+    public double getMoney()
+    {
+        return money;
+    }
+    
+    public int getLocation()
+    {
+        return location;
+    }
+    
+    public int move(int spacesMoved)
+    {
+        this.location += spacesMoved;
+        
+        if(location >= 40)
+        {
+            location -= 40;
+        }
+        return location;
     }
 }

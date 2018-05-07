@@ -6,24 +6,30 @@
  * @version (a version number or a date)
  */
 import java.util.Random;
+import java.util.Scanner;
 public class MonopolyGame implements Game
 {
     public static boolean gameEnd = false;
     public static Space[] board = boardCreation();
     private static   int currentPlayer = 0;
+    public static Player[] players = new Player[0];
     public MonopolyGame()
     {
-
-        int playerNum = 2;
-        Player[] players = new Player[playerNum];
+        Scanner scan = new Scanner(System.in);
+        System.out.println ("num of players: ");
+        int playerNum = scan.nextInt();
+        scan.nextLine();
+        players = new Player[playerNum];
         for (int i = 0; i< playerNum; i++)
         {
-            players[i] = new Player ("unnamed", 1500);//(name, money)
+            System.out.println ("name: ");
+            String name = scan.nextLine();
+            players[i] = new Player (name, 1500);//(name, money)
         }
 
         while(gameEnd == false)
         {
-            if (turn(playerNum))
+            if (turn(currentPlayer))
             {
                 currentPlayer++;
                 if (currentPlayer >= players.length)
@@ -43,19 +49,21 @@ public class MonopolyGame implements Game
 
     }
 
-    public static void turn (int player)
+    public static boolean turn (int player)
     {
         int roll1 = roll();
         int roll2 = roll();
         int moves = roll1+roll2;
-        player.move(moves);
-        
-        //roll
-        //move player
+        int playerLoc = players[player].move(moves);
+
+        if (board[playerLoc].equals("Property"))
+        {
+            System.out.println ("Loc: " + board[playerLoc].getLoc());
+        }
         //check actions
         //ask for purchasing
         //ask for houses, mortgage property. trades
-        
+        return true;
     }
 
     public static int roll()
@@ -65,10 +73,11 @@ public class MonopolyGame implements Game
         return(rand.nextInt(6)+1);
     }
 
-    public static boolean land (int space, Player player)
+    //public static boolean land (int space, Player player, int roll)
     {
         
-        //when player lands: do you want to buy property?, do you have to pay someone?       
+        //when player lands: do you want to buy property?, do you have to pay someone?     
+        //return true;
     }
 
     public static Space[] boardCreation()
@@ -120,15 +129,6 @@ public class MonopolyGame implements Game
         board[39]= new Property("Boardwlak", 39, 400, 50, 200, 'd');
         return board;
     }    
-
-    public static int playerIncrease (int amount, Player[] players, int currentPlayer)//realized this is redundant, will remove later, keep for now
-    {
-        currentPlayer = currentPlayers + amount;
-        if (currentPlayer >= players.length)
-            currentPlayer = currentPlayer- players.length;
-
-        return currentPlayer;
-    }
 
     public static void print (Space[] board)
     {
