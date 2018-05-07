@@ -30,8 +30,7 @@ public class MonopolyGame implements Game
                     currentPlayer = currentPlayer- playerNum;
                 
             }
-            else
-            1+1;//display error
+            //display error
         }
         //how many players?
         //initializing players
