@@ -30,7 +30,8 @@ public class MonopolyGame implements Game
                     currentPlayer = currentPlayer- playerNum;
                 
             }
-            //display error
+            else
+            System.out.println ("error with somethin' IAN DISPLAY SOMETHING");//display error
         }
         //how many players?
         //initializing players
@@ -44,7 +45,16 @@ public class MonopolyGame implements Game
 
     public static void turn (int player)
     {
-        //loop for turn
+        int roll1 = roll();
+        int roll2 = roll();
+        int moves = roll1+roll2;
+        player.move(moves);
+        
+        //roll
+        //move player
+        //check actions
+        //ask for purchasing
+        //ask for houses, mortgage property. trades
         
     }
 
@@ -52,12 +62,12 @@ public class MonopolyGame implements Game
     {
         //using rand, possibly two rands to generate similar # to real game\
         Random rand = new Random();
-        return(rand.nextInt(6)+1)+(rand.nextInt(6)+1);
+        return(rand.nextInt(6)+1);
     }
 
-    public static boolean land (int space)
+    public static boolean land (int space, Player player)
     {
-
+        
         //when player lands: do you want to buy property?, do you have to pay someone?       
     }
 

@@ -11,9 +11,10 @@ public class Property extends Space
     private static double price;
     private static double rent;
     private static double mortgageValue;
-    public Property(String name, int location, double price,  double rent,double mortgageValue, char colour)
+    public Property(int location, double price, String name, double rent,double mortgageValue )
     {
-        //creating thing
+        this.name = name;
+        this.location = location;
     }
     
     public int getPlayer()

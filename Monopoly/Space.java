@@ -20,4 +20,5 @@ abstract class Space
     {
         return name;
     }
+     public void 
 }
