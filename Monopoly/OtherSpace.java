@@ -7,10 +7,30 @@
  */
 public class OtherSpace extends Space
 {
-   public int typeOfCard;//type of card to pick up, 0 if none
+   private int typeOfCard;//type of card to pick up, 0 if none
+   private String name;
+   private int tax;
    
-   public OtherSpace(String name, int cardValue, int transaction)
+   
+   public OtherSpace(String name, int typeOfCard, int tax)
    {
-       
+       this.name = name;
+       this.typeOfCard = typeOfCard;
+       this.tax = tax;
+   }
+   
+   public String getName()
+   {
+       return name;
+   }
+   
+   public int getCardValue()
+   {
+       return typeOfCard;
+   }
+   
+   public int getTax()
+   {
+       return tax;
    }
 }
