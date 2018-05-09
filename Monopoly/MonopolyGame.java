@@ -11,7 +11,7 @@ public class MonopolyGame implements Game
 {
     public static boolean gameEnd = false;
     public static Space[] board = boardCreation();
-    private static   int currentPlayer = 0;
+    private static int currentPlayer = 0;
     public static Player[] players = new Player[0];
     public MonopolyGame()
     {
@@ -29,7 +29,7 @@ public class MonopolyGame implements Game
 
         while(gameEnd == false)
         {
-            if (turn(currentPlayer))
+            if (turn(players[currentPlayer]))
             {
                 currentPlayer++;
                 if (currentPlayer >= players.length)
@@ -49,18 +49,19 @@ public class MonopolyGame implements Game
 
     }
 
-    public static boolean turn (int player)
+    public static boolean turn (Player player)
     {
         int roll1 = roll();
         int roll2 = roll();
         int moves = roll1+roll2;
-        int playerLoc = players[player].move(moves);
-
+        int playerLoc = player.move(moves);
+        System.out.println (playerLoc);
         if (board[playerLoc] instanceof Property)
         {
-            if (board[playerLoc].getPlayer()!= null)
+            if (((Property)board[playerLoc]).getPlayer()!=null)
             {
-                //pay player
+                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent());
+
             }
             else
             {
@@ -69,11 +70,11 @@ public class MonopolyGame implements Game
         }
         else
         {
-            if (Math.abs(board[playerLoc].getTax()) > 0)
+            if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
             {
                 //give money
             }
-            else if (board[playerLoc].getCardValue()>0)
+            else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
             {
                 //give card
             }
@@ -90,11 +91,33 @@ public class MonopolyGame implements Game
         return(rand.nextInt(6)+1);
     }
 
-    //public static boolean land (int space, Player player, int roll)
+    public static boolean pay (Player fromPlayer, double amount)
     {
+        if (fromPlayer.transaction(amount))
+        {
+            return true;
+        }
+        return false;
+    }
 
-        //when player lands: do you want to buy property?, do you have to pay someone?     
-        //return true;
+    public static boolean pay (Player fromPlayer, Player toPlayer, double amount)
+    {
+        if (fromPlayer.transaction(amount)) 
+        {
+            toPlayer.transaction(-1 * amount);
+            return true;
+        }       
+        else if (bankrupcy(fromPlayer, amount) >= amount)
+        {
+            pay(fromPlayer, toPlayer, amount);
+        }
+        return false;
+    }
+
+   
+    public static int bankrupcy (Player player, double amount)
+    {
+        return 1;
     }
 
     public static Space[] boardCreation()

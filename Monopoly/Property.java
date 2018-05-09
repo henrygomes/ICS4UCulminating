@@ -7,7 +7,7 @@
  */
 public class Property extends Space
 {
-    private static int player;
+    private static Player player;
     private static double price;
     private static double rent;
     private static double mortgageValue;
@@ -19,7 +19,7 @@ public class Property extends Space
         this.colour = colour;
     }
     
-    public int getPlayer()
+    public Player getPlayer()
     {
         return player;
     }

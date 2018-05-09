@@ -44,4 +44,15 @@ public class Player
         }
         return location;
     }
+    
+    public boolean transaction(double amount)
+    {
+        if (money <=amount)
+        {
+            money -= amount;
+            return true;
+        }
+        else 
+        return false;
+    }
 }
