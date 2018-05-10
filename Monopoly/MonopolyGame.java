@@ -29,19 +29,20 @@ public class MonopolyGame implements Game
 
         while(gameEnd == false)
         {
-            if (turn(players[currentPlayer]))
+            if (!players[currentPlayer].getHasLost() && turn(players[currentPlayer]))
             {
                 currentPlayer++;
                 if (currentPlayer >= players.length)
                     currentPlayer = currentPlayer- playerNum;
 
             }
-            else
-                System.out.println ("error with somethin' IAN DISPLAY SOMETHING");//display error
-        }
-        //how many players?
-        //initializing players
-        //starting game
+            else if (isGameOver())
+            {
+                System.out.println ("Games over:(");
+                
+                //how many players?
+            }   //initializing players
+        }   //starting game
     }
 
     public static void trade()
@@ -72,13 +73,16 @@ public class MonopolyGame implements Game
         {
             if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
             {
-                //give money
+                pay (player, ((OtherSpace)board[playerLoc]).getTax());
+                
             }
             else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
             {
                 //give card
             }
         }
+        if (player.getMoney() < 0 && player.getProperties()==null)
+            player.hasLost();
         //do you want to add houses, mortgage, trading anything
         //ask for houses, mortgage property. trades
         return true;
@@ -91,35 +95,43 @@ public class MonopolyGame implements Game
         return(rand.nextInt(6)+1);
     }
 
-    public static boolean pay (Player fromPlayer, double amount)
+    public static void pay (Player fromPlayer, double amount)
     {
         if (fromPlayer.transaction(amount))
         {
-            return true;
+            return;
         }
-        return false;
+        else if (amount>= fromPlayer.getMoney())
+        bankrupcy (fromPlayer, amount);
+        
     }
 
-    public static boolean pay (Player fromPlayer, Player toPlayer, double amount)
+    public static void pay (Player fromPlayer, Player toPlayer, double amount)
     {
         if (fromPlayer.transaction(amount)) 
         {
             toPlayer.transaction(-1 * amount);
-            return true;
+            return;
         }       
         else if (bankrupcy(fromPlayer, amount) >= amount)
         {
             pay(fromPlayer, toPlayer, amount);
         }
-        return false;
+        return;
     }
 
-   
     public static int bankrupcy (Player player, double amount)
     {
+        //amount is what player owes
+        //asks if player wants to sell stuff
         return 1;
     }
-
+    
+    public static boolean isGameOver()
+    {
+        return true;
+    }
+    
     public static Space[] boardCreation()
     {
         Space[] board = new Space[40];

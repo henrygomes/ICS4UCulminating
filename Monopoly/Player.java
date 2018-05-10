@@ -8,22 +8,33 @@
 public class Player
 {
     private String name;
-    private double money;
+    private static double money;
     private int location = 0;
-    private Property[] properties;
-    
+    private static Property[] properties;
+    private boolean hasLost = false;
+     
     public Player(String name, double money)
     {
         this.name = name;
         
         this.money = money;
     }
-    
+    public void hasLost()
+    {
+        hasLost = true;
+    }
+    public boolean getHasLost()
+    {
+        return hasLost;
+    }
     public String getName()
     {
         return name;
     }
-    
+    public static Property[] getProperties ()
+    {
+        return properties;
+    }
     public double getMoney()
     {
         return money;
