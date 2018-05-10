@@ -12,7 +12,7 @@ public class Player
     private int location = 0;
     private static Property[] properties;
     private boolean hasLost = false;
-     
+    
     public Player(String name, double money)
     {
         this.name = name;

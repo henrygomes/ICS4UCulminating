@@ -9,10 +9,10 @@ public class OtherSpace extends Space
 {
    private int typeOfCard;//type of card to pick up, 0 if none
    private String name;
-   private int tax;
+   private double tax;
    
-   
-   public OtherSpace(String name, int typeOfCard, int tax)
+   //need to ADD the elictrical 
+   public OtherSpace(String name, int typeOfCard, double tax)
    {
        this.name = name;
        this.typeOfCard = typeOfCard;
@@ -29,7 +29,7 @@ public class OtherSpace extends Space
        return typeOfCard;
    }
    
-   public int getTax()
+   public double getTax()
    {
        return tax;
    }

@@ -10,15 +10,19 @@ public class Property extends Space
     private static Player player;
     private static double price;
     private static double rent;
-    private static double mortgageValue;
+
     private static char colour;
-    public Property(String name, int loc, double cost, double rent, double mortgage, char colour)
+    public Property(String name, int loc, double cost, double rent, char colour)
     {
         this.name = name;
         this.location = loc;
         this.colour = colour;
     }
     
+    public void newOwner(Player player)
+    {
+        this.player = player;
+    }
     public Player getPlayer()
     {
         return player;
@@ -38,6 +42,6 @@ public class Property extends Space
 
     public double getMortgage()
     {
-        return mortgageValue;
+        return price/2;
     }
 }

@@ -2,11 +2,11 @@
 comment0.target=OtherSpace
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Action\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=name\ typeOfCard\ tax
-comment1.target=OtherSpace(java.lang.String,\ int,\ int)
+comment1.target=OtherSpace(java.lang.String,\ int,\ double)
 comment2.params=
 comment2.target=java.lang.String\ getName()
 comment3.params=
 comment3.target=int\ getCardValue()
 comment4.params=
-comment4.target=int\ getTax()
+comment4.target=double\ getTax()
 numComments=5

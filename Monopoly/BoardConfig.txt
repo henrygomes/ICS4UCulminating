@@ -1,0 +1,3 @@
+2
+Property Mediterranean_Avenue 1 60 2 b
+Property Baltic_Avenue 3 60 4 b
