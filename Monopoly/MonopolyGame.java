@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MonopolyGame implements Game
 {
     public static boolean gameEnd = false;
-  
+
     private static int currentPlayer = 0;
     public static Player[] players = new Player[0];
     public MonopolyGame() throws java.io.IOException
@@ -183,11 +183,11 @@ public class MonopolyGame implements Game
         //creating the board, properies, etc.
 
         try {
-            File file = new File ("E:\\gr12 comp sci\\Monopoly\\BoardConfig.txt");
+            File file = new File ("BoardConfig.txt");
             Scanner scanFile = new Scanner (file);
             String firstLine = scanFile.nextLine();
-            int numOfSpaces = scanFile.nextInt();
-            scanFile.nextLine();
+            Scanner scan = new Scanner (firstLine);
+            int numOfSpaces = scan.nextInt();
             Space[] board = new Space[numOfSpaces];
             for (int i = 0; i <numOfSpaces; i ++)
             {
@@ -198,7 +198,7 @@ public class MonopolyGame implements Game
                     int position = scanFile.nextInt();
                     double cost = scanFile.nextInt();
                     double rent = scanFile.nextInt();
-                    double mortgage = scanFile.nextInt();
+                    
                     String colorString = scanFile.next();
                     char color = colorString.charAt (0);
                     board[i] = new Property(name, position, cost, rent, color);
@@ -256,14 +256,14 @@ public class MonopolyGame implements Game
             board[38]= new OtherSpace("Tax", 0, 200);
             board[39]= new Property("Boardwlak", 39, 400, 50, 'd');
              */
-             return board;
+            return board;
         }
         catch(IOException e)
         {
             System.err.println ("ERROR: " + e);
         }
 
-       return null;
+        return null;
     }    
 
 }

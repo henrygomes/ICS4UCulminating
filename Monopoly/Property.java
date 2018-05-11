@@ -7,16 +7,17 @@
  */
 public class Property extends Space
 {
-    private static Player player;
-    private static double price;
-    private static double rent;
-
-    private static char colour;
+    private Player player;
+    private double price;
+    private double rent;
+    private char colour;
     public Property(String name, int loc, double cost, double rent, char colour)
     {
         this.name = name;
         this.location = loc;
         this.colour = colour;
+        this.price = cost;
+        this.rent = rent;
     }
     
     public void newOwner(Player player)
