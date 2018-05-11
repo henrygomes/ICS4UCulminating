@@ -8,15 +8,16 @@
 public class OtherSpace extends Space
 {
    private int typeOfCard;//type of card to pick up, 0 if none
-   private String name;
+
    private double tax;
    
    //need to ADD the elictrical 
-   public OtherSpace(String name, int typeOfCard, double tax)
+   public OtherSpace(String name, int typeOfCard, double tax, int location)
    {
        this.name = name;
        this.typeOfCard = typeOfCard;
        this.tax = tax;
+       this.location = location;
    }
    
    public String getName()

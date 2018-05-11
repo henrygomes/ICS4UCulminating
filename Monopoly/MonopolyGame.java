@@ -194,7 +194,7 @@ public class MonopolyGame implements Game
                 String type = scanFile.next();
                 if (type.equals ("Property"))
                 {
-                    String name = scanFile.next();
+                    String name = scanFile.nextLine();
                     int position = scanFile.nextInt();
                     double cost = scanFile.nextInt();
                     double rent = scanFile.nextInt();
@@ -205,10 +205,12 @@ public class MonopolyGame implements Game
                 }
                 else if (type.equals("OtherSpace"))
                 {
-                    String name = scanFile.next();
+                    String name = scanFile.nextLine();
+                    int location = scanFile.nextInt();
                     int typeOfCard = scanFile.nextInt();
                     double tax = scanFile.nextDouble();
-                    board[i] = new OtherSpace(name, typeOfCard, tax);
+                    
+                    board[i] = new OtherSpace(name, typeOfCard, tax, location);
                 }
             }
             /*
@@ -254,7 +256,7 @@ public class MonopolyGame implements Game
             board[36]= new OtherSpace("Chance", 2, 0);
             board[37]= new Property("Park Place", 37, 350, 35, 'd');
             board[38]= new OtherSpace("Tax", 0, 200);
-            board[39]= new Property("Boardwlak", 39, 400, 50, 'd');
+            board[39]= new Property("Boardwalk", 39, 400, 50, 'd');
              */
             return board;
         }
