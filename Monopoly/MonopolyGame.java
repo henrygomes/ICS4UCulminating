@@ -12,45 +12,44 @@ import java.io.IOException;
 public class MonopolyGame implements Game
 {
     public static boolean gameEnd = false;
-    private static int currentPlayer = 0;
-    public static Player[] players = new Player[0];
+    private static int currentPlayer = 0;//Early versions used this as an indication of whos turn it was until I figured out you could pass Objects as variables and it would change the variable
+    public static Player[] players = new Player[0];//declared as 0 just for safety
     public MonopolyGame() throws java.io.IOException
     {
         try{
-            Scanner scan = new Scanner(System.in);
-            Space[] board = boardCreation();
-            System.out.println ("num of players: ");
-            int playerNum = scan.nextInt();
-            scan.nextLine();
-            players = new Player[playerNum];
-            for (int i = 0; i< playerNum; i++)
+            while (true)//why would anyone what to ever stop playing our wonderful game?
             {
-                System.out.println ("name: ");
-                String name = scan.nextLine();
-                players[i] = new Player (name, 1500);//(name, money)
-            }
-            while(gameEnd == false)
-            {
-                if (!players[currentPlayer].getHasLost())
+                Scanner scan = new Scanner(System.in);//initializing input scanner, hopefully will be using a different method in the GUI
+                Space[] board = boardCreation();//Inializing the board
+                System.out.println ("num of players: ");//the System.out.println (); and the input to be moved to the GUI
+                int playerNum = scan.nextInt();//moved to GUI
+                scan.nextLine();//Moved to GUI
+                players = new Player[playerNum];//actually created player list
+                for (int i = 0; i< playerNum; i++)
                 {
-                    currentPlayer++;
-                    if (currentPlayer >= players.length)
-                        currentPlayer = currentPlayer- playerNum;
-
+                    System.out.println ("name: ");
+                    String name = scan.nextLine();//input to be moved to GUI
+                    players[i] = new Player (name, 1500);//(name, money)
                 }
-                else if (turn(players[currentPlayer], board))
+                while(gameEnd == false)
                 {
-                    currentPlayer++;
-                    if (currentPlayer >= players.length)
-                        currentPlayer = currentPlayer- playerNum;
-                }
-                else if (isGameOver())
-                {
-                    System.out.println ("Games over:(");
+                    if (!players[currentPlayer].getHasLost())//game can still run if 1 or more people have lost
+                    {
+                        currentPlayer++;
+                        if (currentPlayer >= players.length)
+                            currentPlayer = currentPlayer- playerNum;//cycles the player
 
-                    
+                    }
+                    else if (turn(players[currentPlayer], board))
+                    {
+                        currentPlayer++;
+                        if (currentPlayer >= players.length)
+                            currentPlayer = currentPlayer- playerNum;//repetition, should prob be moved to method at some point
+                    }
+                    isGameOver();
                 }   
-            }   
+                System.out.println ("games over :(");
+            }
         }
         catch (IOException e)
         {

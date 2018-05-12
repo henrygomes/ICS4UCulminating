@@ -8,9 +8,9 @@
 public class Player
 {
     private String name;
-    private static double money;
+    private double money;
     private int location = 0;
-    private static Property[] properties;
+    private Property[] properties;
     private boolean hasLost = false;
     
     public Player(String name, double money)
@@ -31,7 +31,7 @@ public class Player
     {
         return name;
     }
-    public static Property[] getProperties ()
+    public Property[] getProperties ()
     {
         return properties;
     }
@@ -58,7 +58,7 @@ public class Player
     
     public boolean transaction(double amount)
     {
-        if (money <=amount)
+        if (money >=amount)
         {
             money -= amount;
             return true;
