@@ -1,4 +1,4 @@
-29
+40
 OtherSpace Start
 0 0 -200
 Property Mediterranean Avenue 
@@ -59,6 +59,8 @@ Property Water Works
 28 150 999999999 u
 Property Marvin Gardens
 29 280 24 y
+OtherSpace Go To Jail
+30 0 0
 Property Pacific Avenue
 31 300 26 g
 Property North Carolina Avenue
@@ -73,5 +75,7 @@ OtherSpace Chance
 36 2 0
 Property Park Place
 37 350 35 d
+OtherSpace Tax
+38 0 200
 Property Boardwalk
 39 400 50 d

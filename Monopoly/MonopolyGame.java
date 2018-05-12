@@ -12,7 +12,6 @@ import java.io.IOException;
 public class MonopolyGame implements Game
 {
     public static boolean gameEnd = false;
-
     private static int currentPlayer = 0;
     public static Player[] players = new Player[0];
     public MonopolyGame() throws java.io.IOException
@@ -30,7 +29,6 @@ public class MonopolyGame implements Game
                 String name = scan.nextLine();
                 players[i] = new Player (name, 1500);//(name, money)
             }
-
             while(gameEnd == false)
             {
                 if (!players[currentPlayer].getHasLost())
@@ -50,9 +48,9 @@ public class MonopolyGame implements Game
                 {
                     System.out.println ("Games over:(");
 
-                    //how many players?
-                }   //initializing players
-            }   //starting game
+                    
+                }   
+            }   
         }
         catch (IOException e)
         {
@@ -198,7 +196,7 @@ public class MonopolyGame implements Game
                     int position = scanFile.nextInt();
                     double cost = scanFile.nextInt();
                     double rent = scanFile.nextInt();
-                    
+
                     String colorString = scanFile.next();
                     char color = colorString.charAt (0);
                     board[i] = new Property(name, position, cost, rent, color);
@@ -209,7 +207,7 @@ public class MonopolyGame implements Game
                     int location = scanFile.nextInt();
                     int typeOfCard = scanFile.nextInt();
                     double tax = scanFile.nextDouble();
-                    
+
                     board[i] = new OtherSpace(name, typeOfCard, tax, location);
                 }
             }
