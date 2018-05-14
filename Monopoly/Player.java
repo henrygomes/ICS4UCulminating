@@ -16,7 +16,6 @@ public class Player
     public Player(String name, double money)
     {
         this.name = name;
-        
         this.money = money;
     }
     public void hasLost()
