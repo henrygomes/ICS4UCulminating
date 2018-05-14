@@ -19,7 +19,10 @@ public class Property extends Space
         this.price = cost;
         this.rent = rent;
     }
-    
+    public char getColour ()
+    {
+        return colour;
+    }
     public void newOwner(Player player)
     {
         this.player = player;
@@ -39,7 +42,10 @@ public class Property extends Space
         return rent;
     }
     
-    //public double getRent(int roll)
+    public double getRent(int roll)
+    {
+        return roll*4;
+    }
 
     public double getMortgage()
     {

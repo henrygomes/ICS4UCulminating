@@ -72,10 +72,14 @@ public class MonopolyGame implements Game
         System.out.println (playerLoc);
         if (board[playerLoc] instanceof Property)
         {
-            if (((Property)board[playerLoc]).getPlayer()!=null)
+            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
             {
                 pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent());
 
+            }
+            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u')
+            {
+                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(moves));
             }
             else
             {

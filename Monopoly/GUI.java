@@ -5,9 +5,9 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Print
+public class GUI
 {
-   public Print (Space[] board)
+   public GUI (Space[] board)
    {
        
    }
