@@ -86,7 +86,7 @@ public class MonopolyGame implements Game
         {
             if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
             {
-                pay (player, ((OtherSpace)board[playerLoc]).getTax());
+                pay(player, ((OtherSpace)board[playerLoc]).getTax());
 
             }
             else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
@@ -166,12 +166,12 @@ public class MonopolyGame implements Game
         {   
             Property[] owned = players[i].getProperties();
 
-            for (int j = 0; j < owned.length; i++)
+            //for (int j = 0; j < owned.length; i++)
             {
 
             }
         }
-        return true;
+        return false;
     }
 
     public static Space[] boardCreation() throws java.io.IOException
