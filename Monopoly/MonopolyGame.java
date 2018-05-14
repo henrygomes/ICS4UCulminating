@@ -155,6 +155,11 @@ public class MonopolyGame implements Game
         }
         return;
     }
+    
+    public static void trade(Player fromPlayer, Player toPlayer, double cash, Property property)
+    {
+        Scanner scan = new Scanner(System.in);
+    }
 
     public static boolean bankrupcy (Player player, double amount)//returns true if debt is paid back, false if it is not
     {
