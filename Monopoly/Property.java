@@ -11,6 +11,7 @@ public class Property extends Space
     private double price;
     private double rent;
     private char colour;
+    private String name;
     public Property(String name, int loc, double cost, double rent, char colour)
     {
         this.name = name;
@@ -18,6 +19,11 @@ public class Property extends Space
         this.colour = colour;
         this.price = cost;
         this.rent = rent;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
     
     public char getColour ()

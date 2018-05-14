@@ -156,9 +156,20 @@ public class MonopolyGame implements Game
         return;
     }
     
-    public static void trade(Player fromPlayer, Player toPlayer, double cash, Property property)
+    public static void trade(Player currentPlayer, Player toPlayer, double cash, Property property)
     {
         Scanner scan = new Scanner(System.in);
+        System.out.println(currentPlayer.getName() + " wants to trade: " + cash + " " + property.getName() +" \nDo you accept the trade?");
+        String yesOrNo = scan.next();
+        if(yesOrNo == "Yes")
+        {
+            pay(currentPlayer, toPlayer, cash);
+            property.newOwner(toPlayer);
+        }
+        else if(yesOrNo == "No")
+        {
+            System.out.println("Trade Cancelled");
+        }
     }
 
     public static boolean bankrupcy (Player player, double amount)//returns true if debt is paid back, false if it is not
