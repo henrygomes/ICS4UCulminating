@@ -115,7 +115,7 @@ public class MonopolyGame implements Game
         {
             property.newOwner(player);
         }
-        else if (yesOrNo.equals ("yes"))
+        else
         {
             System.out.println ("Did not buy " + property.getName());
         }
@@ -168,7 +168,7 @@ public class MonopolyGame implements Game
         return true;
     }
 
-    public static boolean isGameOver()
+    public static boolean isGameOver()//checks if each player has 
     {
         //work in progress
         for (int i = 0; i < players.length; i++)
