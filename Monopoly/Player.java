@@ -12,11 +12,16 @@ public class Player
     private int location = 0;
     private Property[] properties;
     private boolean hasLost = false;
-    
-    public Player(String name, double money)
+    private int playerNum;
+    public Player(String name, double money, int playerNum)
     {
         this.name = name;
         this.money = money;
+        this.playerNum = playerNum;
+    }
+    public int getPlayerNum ()
+    {
+        return playerNum;
     }
     public void hasLost()
     {

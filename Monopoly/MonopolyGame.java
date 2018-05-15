@@ -13,13 +13,15 @@ import java.io.IOException;
 public class MonopolyGame implements Game
 {
     public static boolean gameEnd = false;
-    private static int currentPlayer = 0;//Early versions used this as an indication of whos turn it was until I figured out you could pass Objects as variables and it would change the variable
+    private static int currentPlayerInt = 0;//Early versions used this as an indication of whos turn it was until I figured out you could pass Objects as variables and it would change the variable
+    private static Player currentPlayer;
     public static Player[] players = new Player[0];//declared as 0 just for safety
     public MonopolyGame() throws java.io.IOException
     {
         try{
             while (true)//why would anyone what to ever stop playing our wonderful game?
             {
+
                 Scanner scan = new Scanner(System.in);//initializing input scanner, hopefully will be using a different method in the GUI
                 Space[] board = boardCreation();//Inializing the board
                 System.out.println ("num of players: ");//the System.out.println (); and the input to be moved to the GUI
@@ -30,23 +32,18 @@ public class MonopolyGame implements Game
                 {
                     System.out.println ("name: ");
                     String name = scan.nextLine();//input to be moved to GUI
-                    players[i] = new Player (name, 1500);//(name, money)
+                    players[i] = new Player (name, 1500, i);//(name, money)
                 }
                 while(gameEnd == false)
                 {
-                    displayInfo(players[currentPlayer], board);
-                    if (players[currentPlayer].getHasLost())//game can still run if 1 or more people have lost
+                    displayInfo(players[currentPlayerInt], board);
+                    if (players[currentPlayerInt].getHasLost())//game can still run if 1 or more people have lost
                     {
-                        currentPlayer++;
-                        if (currentPlayer >= players.length)
-                            currentPlayer = currentPlayer- playerNum;//cycles the player
-
+                        currentPlayer = increasePlayer (currentPlayer, playerNum);
                     }
-                    else if (turn(players[currentPlayer], board))
+                    else if (turn(players[currentPlayerInt], board))
                     {
-                        currentPlayer++;
-                        if (currentPlayer >= players.length)
-                            currentPlayer = currentPlayer- playerNum;//repetition, should prob be moved to method at some point
+                        currentPlayer = increasePlayer (currentPlayer, playerNum);
                     }
                     isGameOver();
                 }   
@@ -58,12 +55,23 @@ public class MonopolyGame implements Game
             System.out.println ("err");
         }
     }
+
+    public static Player increasePlayer (Player currentPlayer, int numOfPlayers)
+    {
+        int currentPlayerNum = currentPlayer.getPlayerNum();
+        currentPlayerNum = (currentPlayerNum + 1) % numOfPlayers;
+        currentPlayer = players[currentPlayerNum];
+        
+        return currentPlayer;
+    }
+
     public static void displayInfo(Player player, Space[] board)
     {
         System.out.println ("Player: " + player.getName());
         System.out.println ("Money: $" + player.getMoney());
         System.out.println ("On space: " + board[player.getLocation()].getName ());
     }
+
     public static void trade()
     {
 
@@ -74,7 +82,7 @@ public class MonopolyGame implements Game
 
         int roll1 = roll();
         int roll2 = roll();
-        
+
         int moves = roll1+roll2;
         System.out.println ("Player rolled a " + roll1 + " and a " + roll2 + " (Moved " + moves + ")");
         int playerLoc = player.move(moves);
@@ -164,7 +172,7 @@ public class MonopolyGame implements Game
         }
         return;
     }
-    
+
     public static void trade(Player currentPlayer)
     {
         boolean tradeIsAGo = false;
@@ -298,4 +306,8 @@ public class MonopolyGame implements Game
         return null;
     }    
 
+    public static int modTest (int numOfPlayer, int currentPlayer)
+    {
+        return (currentPlayer + 1) % numOfPlayer;
+    }
 }
