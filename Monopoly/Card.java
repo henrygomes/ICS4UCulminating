@@ -9,5 +9,5 @@ public class Card
 {
 
     
-    public Card (boolean isChance, int spaceToMoveTo, 
+    //public Card (boolean isChance, int spaceToMoveTo,
 }

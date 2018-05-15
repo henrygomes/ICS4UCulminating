@@ -34,7 +34,8 @@ public class MonopolyGame implements Game
                 }
                 while(gameEnd == false)
                 {
-                    if (!players[currentPlayer].getHasLost())//game can still run if 1 or more people have lost
+                    displayInfo(players[currentPlayer], board);
+                    if (players[currentPlayer].getHasLost())//game can still run if 1 or more people have lost
                     {
                         currentPlayer++;
                         if (currentPlayer >= players.length)
@@ -57,7 +58,12 @@ public class MonopolyGame implements Game
             System.out.println ("err");
         }
     }
-
+    public static void displayInfo(Player player, Space[] board)
+    {
+        System.out.println ("Player: " + player.getName());
+        System.out.println ("Money: $" + player.getMoney());
+        System.out.println ("On space: " + board[player.getLocation()].getName ());
+    }
     public static void trade()
     {
 
@@ -68,9 +74,11 @@ public class MonopolyGame implements Game
 
         int roll1 = roll();
         int roll2 = roll();
+        
         int moves = roll1+roll2;
+        System.out.println ("Player rolled a " + roll1 + " and a " + roll2 + " (Moved " + moves + ")");
         int playerLoc = player.move(moves);
-        System.out.println (playerLoc);
+        System.out.println (player.getName() + " landed on: " + board[playerLoc].getName());
         if (board[playerLoc] instanceof Property)
         {
             if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
