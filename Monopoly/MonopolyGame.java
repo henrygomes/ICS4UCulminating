@@ -157,7 +157,7 @@ public class MonopolyGame implements Game
         return;
     }
     
-    public static void trade(Player currentPlayer, Player toPlayer, double cash, Property property)
+    public static void trade(Player currentPlayer)
     {
         boolean tradeIsAGo = false;
         ArrayList<String> Property = new ArrayList<String>(); 
