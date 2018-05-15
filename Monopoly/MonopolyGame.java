@@ -5,6 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
+import java.util.ArrayList;
 import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
@@ -158,13 +159,17 @@ public class MonopolyGame implements Game
     
     public static void trade(Player currentPlayer, Player toPlayer, double cash, Property property)
     {
+        boolean tradeIsAGo = false;
+        ArrayList<String> Property = new ArrayList<String>(); 
         Scanner scan = new Scanner(System.in);
-        System.out.println(currentPlayer.getName() + " wants to trade: " + cash + " " + property.getName() +" \nDo you accept the trade?");
+        System.out.println(currentPlayer.getName() + " wants to trade with you. \nDo you accept?");
         String yesOrNo = scan.next();
         if(yesOrNo == "Yes")
         {
-            pay(currentPlayer, toPlayer, cash);
-            property.newOwner(toPlayer);
+            while(tradeIsAGo != true)
+            {
+                System.out.println("What properties do you want to trade?");
+            }
         }
         else if(yesOrNo == "No")
         {
