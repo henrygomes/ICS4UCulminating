@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=ConfirmBox
+comment1.params=title\ message
+comment1.target=boolean\ display(java.lang.String,\ java.lang.String)
+numComments=2
