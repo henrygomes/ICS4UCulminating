@@ -5,7 +5,9 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Cards
+public class Card
 {
-    //put the pickup cards here ???
+
+    
+    public Card (boolean isChance, int spaceToMoveTo, 
 }
