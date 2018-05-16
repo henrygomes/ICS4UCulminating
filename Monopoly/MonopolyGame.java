@@ -17,14 +17,11 @@ public class MonopolyGame implements Game
     private static Player currentPlayer;
     public static Player[] players = new Player[0];//declared as 0 just for safety
     public static Space[] board = boardCreation();//Inializing the board
-    public MonopolyGame() throws java.io.IOException
+    public MonopolyGame()
     {
-
         while (true)//why would anyone what to ever stop playing our wonderful game?
         {
-
             Scanner scan = new Scanner(System.in);//initializing input scanner, hopefully will be using a different method in the GUI
-
             System.out.println ("num of players: ");//the System.out.println (); and the input to be moved to the GUI
             int playerNum = scan.nextInt();//moved to GUI
             scan.nextLine();//Moved to GUI
@@ -33,8 +30,9 @@ public class MonopolyGame implements Game
             {
                 System.out.println ("name: ");
                 String name = scan.nextLine();//input to be moved to GUI
-                players[i] = new Player (name, 1500, i);//(name, money)
+                players[i] = new Player (name, i);//(name, money)
             }
+            Player winner = getWinner();
             while(gameEnd == false)
             {
                 displayInfo(players[currentPlayerInt], board);
@@ -46,11 +44,81 @@ public class MonopolyGame implements Game
                 {
                     currentPlayer = increasePlayer (currentPlayer, playerNum);
                 }
-                isGameOver();
-            }   
-            System.out.println ("games over :(");
-        }
 
+                if (winner !=null)
+                    gameEnd = true;
+            }   
+            System.out.println (winner.getName() + "Won the Game!!");
+        }
+    }
+
+    public static boolean turn (Player player)
+    {
+        boolean doubles= false;
+        int roll1 = roll();
+        int roll2 = roll();
+        if (roll1 == roll2)
+        {
+            doubles = true;
+            player.newDoubles(player.getDoubles() + 1);
+        }
+        else 
+        {
+            doubles = false;
+            player.newDoubles (0);
+        }
+        if (player.getDoubles () >=3)
+        {
+            //send to jail
+            player.newDoubles (0);
+            return true;
+        }
+        int moves = roll1+roll2;
+        System.out.println ("Player rolled a " + roll1 + " and a " + roll2 + " (Moved " + moves + ")");
+        int playerLoc = player.move(moves);
+        System.out.println (player.getName() + " landed on: " + board[playerLoc].getName());
+        if (board[playerLoc] instanceof Property)
+        {
+            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
+            {
+                pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()) * -1);
+
+            }
+            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u')
+            {
+                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(moves));
+            }
+            else
+            {
+                buyProperty(player, ((Property)board[playerLoc]));
+            }
+        }
+        else
+        {
+            if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
+            {
+                pay(player, ((OtherSpace)board[playerLoc]).getTax());
+            }
+            else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
+            {
+                //give card
+            }
+        }
+        //do you want to add houses, mortgage, trading anything
+        //ask for houses, mortgage property. trades
+        if (hasPlayerLost(player))
+            player.hasLost();
+        if (doubles && !turn (player))
+            return false;
+        return true;
+    }
+
+    public static boolean hasPlayerLost (Player player)
+    {
+        if (player.getMoney() <=0 && player.getProperties().isEmpty())
+            return true;
+        else
+            return false;
     }
 
     public static Player increasePlayer (Player currentPlayer, int numOfPlayers)
@@ -68,60 +136,6 @@ public class MonopolyGame implements Game
         System.out.println ("Money: $" + player.getMoney());
         System.out.println ("On space: " + board[player.getLocation()].getName ());
     }
-    
-    public static boolean turn (Player player)
-    {
-        boolean doubles= false;
-        int roll1 = roll();
-        int roll2 = roll();
-        if (roll1 == roll2)
-        {
-            doubles = true;
-
-        }
-        else 
-            doubles = false;
-        int moves = roll1+roll2;
-        System.out.println ("Player rolled a " + roll1 + " and a " + roll2 + " (Moved " + moves + ")");
-        int playerLoc = player.move(moves);
-        System.out.println (player.getName() + " landed on: " + board[playerLoc].getName());
-        if (board[playerLoc] instanceof Property)
-        {
-            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
-            {
-                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent());
-
-            }
-            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u')
-            {
-                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(moves));
-            }
-            else
-            {
-                buyProperty(player, ((Property)board[playerLoc]));
-            }
-        }
-        else
-        {
-            if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
-            {
-                pay(player, ((OtherSpace)board[playerLoc]).getTax());
-
-            }
-            else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
-            {
-                //give card
-            }
-        }
-
-        //do you want to add houses, mortgage, trading anything
-        //ask for houses, mortgage property. trades
-        if (player.getMoney() < 0 && player.getProperties()==null)
-            player.hasLost();
-        if (doubles && !turn (player))
-            return false;
-        return true;
-    }
 
     public static void buyProperty (Player player, Property property)
     {
@@ -131,6 +145,7 @@ public class MonopolyGame implements Game
         if (yesOrNo.equals ("yes") && pay (player, property.getPrice()))
         {
             property.newOwner(player);
+            player.addNewProperty (property);
         }
         else
         {
@@ -151,7 +166,9 @@ public class MonopolyGame implements Game
         {
             return true;
         }
-        else if (bankrupcy (fromPlayer, amount))
+        amount -= fromPlayer.getMoney();
+        pay (fromPlayer, fromPlayer.getMoney());
+        if (bankrupcy (fromPlayer, amount))
         {
             pay (fromPlayer, amount);
             return true;
@@ -159,18 +176,21 @@ public class MonopolyGame implements Game
         return false;
     }
 
-    public static void pay (Player fromPlayer, Player toPlayer, double amount)
+    public static boolean pay (Player fromPlayer, Player toPlayer, double amount)
     {
         if (fromPlayer.transaction(amount)) 
         {
-            toPlayer.transaction(-1 * amount);
-            return;
-        }       
-        else if (bankrupcy(fromPlayer, amount))
+            toPlayer.transaction(amount);
+            return true;
+        }   
+        amount -= fromPlayer.getMoney();
+        pay (fromPlayer, toPlayer, fromPlayer.getMoney());
+        if (bankrupcy(fromPlayer, amount))
         {
             pay(fromPlayer, toPlayer, amount);
+            return true;
         }
-        return;
+        return false;
     }
 
     public static void trade(Player currentPlayer)
@@ -195,31 +215,41 @@ public class MonopolyGame implements Game
 
     public static boolean bankrupcy (Player player, double amount)//returns true if debt is paid back, false if it is not
     {
+        double valueOfPlayer = player.getValueOfPlayer();
+        if (valueOfPlayer >= amount)
+        {
+            return true;
+            //if you sell some things you can pay the debt
+        }
+        else
+        return false;
         //amount is what player owes
         //asks if player wants to sell stuff
-        return true;
+        
     }
 
-    public static boolean isGameOver()//checks if each player has 
+    public static Player getWinner()//checks if each player has 
     {
-        //work in progress
+        //work in progress]
+        int numOfPlayersLost = 0;
+        Player winner = null;
         for (int i = 0; i < players.length; i++)
         {   
-            Property[] owned = players[i].getProperties();
-
-            //for (int j = 0; j < owned.length; i++)
-            {
-
-            }
+            if (players[i].getHasLost())
+                numOfPlayersLost++;
+            else 
+                winner = players[i]; 
         }
-        return false;
+        if (numOfPlayersLost+1 >= players.length)
+        {
+            return winner;
+        }
+        return null;
     }
 
     public static Space[] boardCreation()
     {
-
         //creating the board, properies, etc.
-
         try {
             File file = new File ("BoardConfig.txt");
             Scanner scanFile = new Scanner (file);
@@ -302,12 +332,6 @@ public class MonopolyGame implements Game
         {
             System.err.println ("ERROR: " + e);
         }
-
         return null;
     }    
-
-    public static int modTest (int numOfPlayer, int currentPlayer)
-    {
-        return (currentPlayer + 1) % numOfPlayer;
-    }
 }
