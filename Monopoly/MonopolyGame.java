@@ -19,37 +19,37 @@ public class MonopolyGame implements Game
     public static Space[] board = boardCreation();//Inializing the board
     public MonopolyGame() throws java.io.IOException
     {
- 
-            while (true)//why would anyone what to ever stop playing our wonderful game?
-            {
 
-                Scanner scan = new Scanner(System.in);//initializing input scanner, hopefully will be using a different method in the GUI
-                
-                System.out.println ("num of players: ");//the System.out.println (); and the input to be moved to the GUI
-                int playerNum = scan.nextInt();//moved to GUI
-                scan.nextLine();//Moved to GUI
-                players = new Player[playerNum];//actually created player list
-                for (int i = 0; i< playerNum; i++)
-                {
-                    System.out.println ("name: ");
-                    String name = scan.nextLine();//input to be moved to GUI
-                    players[i] = new Player (name, 1500, i);//(name, money)
-                }
-                while(gameEnd == false)
-                {
-                    displayInfo(players[currentPlayerInt], board);
-                    if (players[currentPlayerInt].getHasLost())//game can still run if 1 or more people have lost
-                    {
-                        currentPlayer = increasePlayer (currentPlayer, playerNum);
-                    }
-                    else if (turn(players[currentPlayerInt]))
-                    {
-                        currentPlayer = increasePlayer (currentPlayer, playerNum);
-                    }
-                    isGameOver();
-                }   
-                System.out.println ("games over :(");
+        while (true)//why would anyone what to ever stop playing our wonderful game?
+        {
+
+            Scanner scan = new Scanner(System.in);//initializing input scanner, hopefully will be using a different method in the GUI
+
+            System.out.println ("num of players: ");//the System.out.println (); and the input to be moved to the GUI
+            int playerNum = scan.nextInt();//moved to GUI
+            scan.nextLine();//Moved to GUI
+            players = new Player[playerNum];//actually created player list
+            for (int i = 0; i< playerNum; i++)
+            {
+                System.out.println ("name: ");
+                String name = scan.nextLine();//input to be moved to GUI
+                players[i] = new Player (name, 1500, i);//(name, money)
             }
+            while(gameEnd == false)
+            {
+                displayInfo(players[currentPlayerInt], board);
+                if (players[currentPlayerInt].getHasLost())//game can still run if 1 or more people have lost
+                {
+                    currentPlayer = increasePlayer (currentPlayer, playerNum);
+                }
+                else if (turn(players[currentPlayerInt]))
+                {
+                    currentPlayer = increasePlayer (currentPlayer, playerNum);
+                }
+                isGameOver();
+            }   
+            System.out.println ("games over :(");
+        }
 
     }
 
@@ -58,7 +58,7 @@ public class MonopolyGame implements Game
         int currentPlayerNum = currentPlayer.getPlayerNum();
         currentPlayerNum = (currentPlayerNum + 1) % numOfPlayers;
         currentPlayer = players[currentPlayerNum];
-        
+
         return currentPlayer;
     }
 
@@ -68,13 +68,19 @@ public class MonopolyGame implements Game
         System.out.println ("Money: $" + player.getMoney());
         System.out.println ("On space: " + board[player.getLocation()].getName ());
     }
-
+    
     public static boolean turn (Player player)
     {
-
+        boolean doubles= false;
         int roll1 = roll();
         int roll2 = roll();
+        if (roll1 == roll2)
+        {
+            doubles = true;
 
+        }
+        else 
+            doubles = false;
         int moves = roll1+roll2;
         System.out.println ("Player rolled a " + roll1 + " and a " + roll2 + " (Moved " + moves + ")");
         int playerLoc = player.move(moves);
@@ -112,6 +118,8 @@ public class MonopolyGame implements Game
         //ask for houses, mortgage property. trades
         if (player.getMoney() < 0 && player.getProperties()==null)
             player.hasLost();
+        if (doubles && !turn (player))
+            return false;
         return true;
     }
 
