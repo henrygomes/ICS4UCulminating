@@ -16,14 +16,15 @@ public class MonopolyGame implements Game
     private static int currentPlayerInt = 0;//Early versions used this as an indication of whos turn it was until I figured out you could pass Objects as variables and it would change the variable
     private static Player currentPlayer;
     public static Player[] players = new Player[0];//declared as 0 just for safety
+    public static Space[] board = boardCreation();//Inializing the board
     public MonopolyGame() throws java.io.IOException
     {
-        try{
+ 
             while (true)//why would anyone what to ever stop playing our wonderful game?
             {
 
                 Scanner scan = new Scanner(System.in);//initializing input scanner, hopefully will be using a different method in the GUI
-                Space[] board = boardCreation();//Inializing the board
+                
                 System.out.println ("num of players: ");//the System.out.println (); and the input to be moved to the GUI
                 int playerNum = scan.nextInt();//moved to GUI
                 scan.nextLine();//Moved to GUI
@@ -41,7 +42,7 @@ public class MonopolyGame implements Game
                     {
                         currentPlayer = increasePlayer (currentPlayer, playerNum);
                     }
-                    else if (turn(players[currentPlayerInt], board))
+                    else if (turn(players[currentPlayerInt]))
                     {
                         currentPlayer = increasePlayer (currentPlayer, playerNum);
                     }
@@ -49,11 +50,7 @@ public class MonopolyGame implements Game
                 }   
                 System.out.println ("games over :(");
             }
-        }
-        catch (IOException e)
-        {
-            System.out.println ("err");
-        }
+
     }
 
     public static Player increasePlayer (Player currentPlayer, int numOfPlayers)
@@ -72,7 +69,7 @@ public class MonopolyGame implements Game
         System.out.println ("On space: " + board[player.getLocation()].getName ());
     }
 
-    public static boolean turn (Player player, Space[] board)
+    public static boolean turn (Player player)
     {
 
         int roll1 = roll();
@@ -210,7 +207,7 @@ public class MonopolyGame implements Game
         return false;
     }
 
-    public static Space[] boardCreation() throws java.io.IOException
+    public static Space[] boardCreation()
     {
 
         //creating the board, properies, etc.
