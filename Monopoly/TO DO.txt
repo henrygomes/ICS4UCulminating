@@ -1,0 +1,11 @@
+Funtions
+*Mortgage
+*trading
+*Houses
+*Cards
+*Roll Doubles
+*Bankrupcy
+Fixes/Additions
+*GUI implementations
+*GUI
+*Commenting

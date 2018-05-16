@@ -72,11 +72,6 @@ public class MonopolyGame implements Game
         System.out.println ("On space: " + board[player.getLocation()].getName ());
     }
 
-    public static void trade()
-    {
-
-    }
-
     public static boolean turn (Player player, Space[] board)
     {
 
