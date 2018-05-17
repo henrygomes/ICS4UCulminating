@@ -192,19 +192,47 @@ public class MonopolyGame implements Game
         }
         return false;
     }
-
+    
+    /**
+     * This method creates the option for players to trade properties and money between eachother. 
+     */
     public static void trade(Player currentPlayer)
     {
         boolean tradeIsAGo = false;
-        ArrayList<String> Property = new ArrayList<String>(); 
+        int numPlayers = players.length;
+        int toPlayer;
+        double cashToTrade;
+        ArrayList<String> properties = new ArrayList<String>(); 
         Scanner scan = new Scanner(System.in);
+        boolean moreProperties = false;
+        
+        
+        
+        System.out.println("Who do you want to trade with? 1? 2? 3?...");
+        toPlayer = scan.nextInt();
         System.out.println(currentPlayer.getName() + " wants to trade with you. \nDo you accept?");
         String yesOrNo = scan.next();
         if(yesOrNo == "Yes")
         {
-            while(tradeIsAGo != true)
+            while(moreProperties != true)
             {
-                System.out.println("What properties do you want to trade?");
+                System.out.println("What properties do you want to trade? Enter the names of properties to trade and 'done' to finish");
+                if(scan.nextLine().equals("done"))
+                {
+                    moreProperties = true;
+                }
+                else
+                {
+                    properties.add(scan.nextLine());
+                }
+            }
+            System.out.println("Do you want to exchange money? Yes or no?");
+            if(scan.nextLine().equals("yes") || scan.nextLine().equals("Yes"))
+            {
+                System.out.println("How much money do you want to trade?");
+                cashToTrade = scan.nextDouble();
+                // Find out how to get player from playerNum
+                //pay(currentPlayer, );
             }
         }
         else if(yesOrNo == "No")
@@ -222,10 +250,10 @@ public class MonopolyGame implements Game
             //if you sell some things you can pay the debt
         }
         else
-        return false;
+            return false;
         //amount is what player owes
         //asks if player wants to sell stuff
-        
+
     }
 
     public static Player getWinner()//checks if each player has 

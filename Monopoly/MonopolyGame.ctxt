@@ -4,6 +4,7 @@ comment1.params=
 comment1.target=MonopolyGame()
 comment10.params=currentPlayer
 comment10.target=void\ trade(Player)
+comment10.text=\r\n\ This\ method\ creates\ the\ option\ for\ players\ to\ trade\ properties\ and\ money\ between\ eachother.\ \r\n
 comment11.params=player\ amount
 comment11.target=boolean\ bankrupcy(Player,\ double)
 comment12.params=

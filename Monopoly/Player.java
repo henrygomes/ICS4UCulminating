@@ -21,10 +21,12 @@ public class Player
         this.money = money;
         this.playerNum = playerNum;
     }
+    
     public void addNewProperty (Property newProperty)
     {   
         properties.add(newProperty);
     }
+    
     public Player(String name,  int playerNum)
     {
         this.name = name;
@@ -87,6 +89,7 @@ public class Player
         }
         return location;
     }
+    
     public double getValueOfPlayer()
     {
         double valueOfProperties = 0;
@@ -96,6 +99,7 @@ public class Player
         }
         return valueOfProperties + money;
     }
+    
     public boolean transaction(double amount)
     {
         if (money >=amount)
