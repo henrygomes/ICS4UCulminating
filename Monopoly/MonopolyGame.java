@@ -104,7 +104,7 @@ public class MonopolyGame implements Game
                 //give card
             }
         }
-        //do you want to add houses, mortgage, trading anything
+        //do you want to add houses, mortgage, un-mortgage, trading anything, bankrupcy. 
         //ask for houses, mortgage property. trades
         if (hasPlayerLost(player))
             player.hasLost();
@@ -193,52 +193,19 @@ public class MonopolyGame implements Game
         return false;
     }
     
+    public static boolean mortgage(Player currentPlayer)
+    {
+        return true;
+    }
+    
     /**
      * This method creates the option for players to trade properties and money between eachother. 
      */
-    public static void trade(Player currentPlayer)
+    public static void trade(Player fromPlayer, Player toPlayer, ArrayList<Property> fromPlayerProperties, ArrayList<Property> toPlayerProperties)
     {
-        boolean tradeIsAGo = false;
-        int numPlayers = players.length;
-        int toPlayer;
-        double cashToTrade;
-        ArrayList<String> properties = new ArrayList<String>(); 
-        Scanner scan = new Scanner(System.in);
-        boolean moreProperties = false;
-        
-        
-        
-        System.out.println("Who do you want to trade with? 1? 2? 3?...");
-        toPlayer = scan.nextInt();
-        System.out.println(currentPlayer.getName() + " wants to trade with you. \nDo you accept?");
-        String yesOrNo = scan.next();
-        if(yesOrNo == "Yes")
-        {
-            while(moreProperties != true)
-            {
-                System.out.println("What properties do you want to trade? Enter the names of properties to trade and 'done' to finish");
-                if(scan.nextLine().equals("done"))
-                {
-                    moreProperties = true;
-                }
-                else
-                {
-                    properties.add(scan.nextLine());
-                }
-            }
-            System.out.println("Do you want to exchange money? Yes or no?");
-            if(scan.nextLine().equals("yes") || scan.nextLine().equals("Yes"))
-            {
-                System.out.println("How much money do you want to trade?");
-                cashToTrade = scan.nextDouble();
-                // Find out how to get player from playerNum
-                //pay(currentPlayer, );
-            }
-        }
-        else if(yesOrNo == "No")
-        {
-            System.out.println("Trade Cancelled");
-        }
+        /*
+         * Make methods to take properties and give them to the other person.
+         */
     }
 
     public static boolean bankrupcy (Player player, double amount)//returns true if debt is paid back, false if it is not
