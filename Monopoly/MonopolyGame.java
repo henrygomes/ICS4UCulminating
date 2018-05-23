@@ -77,6 +77,8 @@ public class MonopolyGame implements Game
         System.out.println ("Player rolled a " + roll1 + " and a " + roll2 + " (Moved " + moves + ")");
         int playerLoc = player.move(moves);
         System.out.println (player.getName() + " landed on: " + board[playerLoc].getName());
+        land (playerLoc, player, -1);
+        /*
         if (board[playerLoc] instanceof Property)
         {
             if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
@@ -104,6 +106,7 @@ public class MonopolyGame implements Game
                 //give card
             }
         }
+        */
         //do you want to add houses, mortgage, un-mortgage, trading anything, bankrupcy. 
         //ask for houses, mortgage property. trades
         if (hasPlayerLost(player))
@@ -112,7 +115,38 @@ public class MonopolyGame implements Game
             return false;
         return true;
     }
+    public static void land (int playerLoc, Player player, int utilityMultiplier)//utilityMultiplier is for the multiplier for utilities
+    {
+        if (utilityMultiplier <0)
+            utilityMultiplier = 4;
+        if (board[playerLoc] instanceof Property)
+        {
+            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
+            {
+                pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()) * -1);
 
+            }
+            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u')
+            {
+                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(roll()*utilityMultiplier));
+            }
+            else
+            {
+                buyProperty(player, ((Property)board[playerLoc]));
+            }
+        }
+        else
+        {
+            if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
+            {
+                pay(player, ((OtherSpace)board[playerLoc]).getTax());
+            }
+            else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
+            {
+                //give card
+            }
+        }
+    }
     public static boolean hasPlayerLost (Player player)
     {
         if (player.getMoney() <=0 && player.getProperties().isEmpty())
