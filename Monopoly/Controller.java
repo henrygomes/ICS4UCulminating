@@ -187,10 +187,8 @@ public class Controller implements Initializable
 
     public static void buyProperty (Player player, Property property)
     {
-        System.out.print ("do you want to buy: " + property.getName() + "? (yes, or no)");
-        Scanner scan = new Scanner(System.in);
-        String yesOrNo = scan.next();
-        if (yesOrNo.equals ("yes") && pay (player, property.getPrice()))
+        Boolean result = ConfirmBox.display("Are You Sure?", "Are You Sure You Woul Like To Buy This Property");
+        if (result == true && pay (player, property.getPrice()))
         {
             property.newOwner(player);
             player.addNewProperty (property);
