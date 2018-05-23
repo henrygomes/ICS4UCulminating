@@ -87,6 +87,7 @@ public class Player
         if(location >= 40)
         {
             location -= 40;
+            money += 200;
         }
         return location;
     }
