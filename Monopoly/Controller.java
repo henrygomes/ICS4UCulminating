@@ -78,13 +78,13 @@ public class Controller implements Initializable
         System.out.println("You Rolled: " + totalRoll + " Current Player: " + currentPlayer + " Position: " + players[currentPlayer].getLocation());
         if (dice1 != dice2)
             currentPlayer++;
-        if (currentPlayer == state.getNumPlayers())
+        if (currentPlayer >= state.getNumPlayers())
             currentPlayer = 0;
-
+        
         state.setCurrentPlayer(currentPlayer);
         getPlayerStatus(currentPlayer-1);
         //getPropertyStatus(players[currentPlayer].getLocation());
-        turn(players[state.getCurrentPlayer()]);
+        turn(players[state.getCurrentPlayer()], -1);
     }
 
     private int roll()
@@ -95,28 +95,25 @@ public class Controller implements Initializable
 
     public void getPlayerStatus(int p)
     {
-    double playerMoney = players[p].getMoney();
-    String playerName = players[p].getName();
-    System.out.println("Player Money: " + playerMoney + " Player Name: " + playerName);
+        double playerMoney = players[p].getMoney();
+        String playerName = players[p].getName();
+        System.out.println("Player Money: " + playerMoney + " Player Name: " + playerName);
     }
 
     public void getPropertyStatus(int s)
     {
         if (board[players[state.getCurrentPlayer()].getLocation()] instanceof Property);
             System.out.print("");
-
-
     }
 
-    public void turn(Player player)
-    {
-        System.out.println("in turn");
+    public void turn(Player player, int utilityMultiplier)
+    { 
         int playerLoc = players[state.getCurrentPlayer()].getLocation();
-        int x = 1;
         System.out.println("playerLoc: " + playerLoc);
+        if (utilityMultiplier <0)
+            utilityMultiplier = 4;
         if (board[playerLoc] instanceof Property)
         {
-            System.out.println("worked");
             if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
             {
                 pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()) * -1);
@@ -251,7 +248,6 @@ public class Controller implements Initializable
                     board[i] = new OtherSpace(name, typeOfCard, tax, location);
                 }
             }
-            System.out.println("returning board");
             return board;
         }
         catch(IOException e)
