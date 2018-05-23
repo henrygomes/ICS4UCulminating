@@ -15,6 +15,7 @@ public class Player
     private boolean hasLost = false;
     private int playerNum;
     private int doubles = 0;
+    private int GOOJFCard =0;
     public Player(String name, double money, int playerNum)
     {
         this.name = name;
@@ -90,6 +91,12 @@ public class Player
         return location;
     }
     
+    public void moveTo (int toLoc, boolean giveStartMoney)
+    {
+        if (location > toLoc && giveStartMoney)
+            money+= 200;
+            location = toLoc;
+    }
     public double getValueOfPlayer()
     {
         double valueOfProperties = 0;
@@ -99,7 +106,10 @@ public class Player
         }
         return valueOfProperties + money;
     }
-    
+    public void getMoney (double amount)
+    {
+      money += amount;   
+    }
     public boolean transaction(double amount)
     {
         if (money >=amount)
@@ -109,5 +119,9 @@ public class Player
         }
         else 
             return false;
+    }
+    public void  newGOOJFCard()
+    {
+        GOOJFCard++;
     }
 }
