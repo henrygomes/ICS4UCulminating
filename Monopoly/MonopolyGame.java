@@ -237,9 +237,14 @@ public class MonopolyGame implements Game
      */
     public static void trade(Player fromPlayer, Player toPlayer, ArrayList<Property> fromPlayerProperties, ArrayList<Property> toPlayerProperties)
     {
-        /*
-         * Make methods to take properties and give them to the other person.
-         */
+        for(int i = 0; i < fromPlayerProperties.size(); i++)
+        {
+            fromPlayerProperties.get(i).newOwner(toPlayer);
+        }
+        for(int i = 0; i < toPlayerProperties.size(); i++)
+        {
+            toPlayerProperties.get(i).newOwner(toPlayer);
+        }
     }
 
     public static boolean bankrupcy (Player player, double amount)//returns true if debt is paid back, false if it is not
