@@ -11,6 +11,7 @@ public class Property extends Space
     private double price;
     private double rent;
     private char colour;
+    private boolean isPropMortgaged = false;
     private String name;
     public Property(String name, int loc, double cost, double rent, char colour)
     {
@@ -53,11 +54,26 @@ public class Property extends Space
     
     public double getRent(int roll)
     {
-        return roll*4;
+        return roll * 4;
     }
 
     public double getMortgage()
     {
         return price / 2;
+    }
+    
+    public boolean getIsMortgage()
+    {
+        return isPropMortgaged;
+    }
+    
+    public void isMortgaged()
+    {
+        isPropMortgaged = true;
+    }
+    
+    public void unMortgage()
+    {
+        isPropMortgaged = false;
     }
 }

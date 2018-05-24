@@ -98,6 +98,7 @@ public class Player
             money+= 200;
             location = toLoc;
     }
+    
     public double getValueOfPlayer()
     {
         double valueOfProperties = 0;
@@ -107,10 +108,17 @@ public class Player
         }
         return valueOfProperties + money;
     }
-    public void giveMoney (double amount)
+    
+    public void addMoney (double amount)
     {
       money += amount;   
     }
+    
+    public void subtractMoney(double amount)
+    {
+        money -= amount;
+    }
+    
     public boolean transaction(double amount)
     {
         if (money >=amount)
@@ -121,6 +129,7 @@ public class Player
         else 
             return false;
     }
+    
     public void  newGOOJFCard()
     {
         GOOJFCard++;
