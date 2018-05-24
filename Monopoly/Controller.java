@@ -136,7 +136,7 @@ public class Controller implements Initializable
             }
             else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
             {
-
+                Card.CardPickup (player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
             }
         }
         if (hasPlayerLost(player))

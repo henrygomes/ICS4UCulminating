@@ -107,7 +107,7 @@ public class Player
         }
         return valueOfProperties + money;
     }
-    public void getMoney (double amount)
+    public void giveMoney (double amount)
     {
       money += amount;   
     }
