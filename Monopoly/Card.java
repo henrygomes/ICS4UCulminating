@@ -40,7 +40,7 @@ public class Card
                 case 4://advance to nearest railroad, pay 2x rental, if unowned buy
                 break;
                 case 5://get 50
-                player.getMoney (50);
+                player.addMoney (50);
                 break;
                 case 6://get out of jail free card
                 player.newGOOJFCard();
@@ -81,10 +81,10 @@ public class Card
                 }
                 break;
                 case 14://collect 150
-                player.getMoney(150);
+                player.addMoney(150);
                 break;
                 case 15://collect 100
-                player.getMoney(100);
+                player.addMoney(100);
                 break;
             }
         }
