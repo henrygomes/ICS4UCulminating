@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 import static java.awt.SystemColor.text;
 
@@ -257,5 +258,67 @@ public class Controller implements Initializable
         return null;
     }
 
-
+    public static void mortgageProperty(Player currentPlayer, Property property)
+    {
+       currentPlayer.addMoney(property.getMortgage());
+       property.isMortgaged();
+    }
+    
+    public static void unMortgageProperty(Player currentPlayer, Property property)
+    {
+        pay(currentPlayer, property.getMortgage());
+        property.unMortgage();
+    }
+    
+    /**
+     * This method creates the option for players to trade properties and money between eachother. 
+     */
+    public static void trade(Player fromPlayer, Player toPlayer, ArrayList<Property> fromPlayerProperties, ArrayList<Property> toPlayerProperties)
+    {
+        for(int i = 0; i < fromPlayerProperties.size(); i++)
+        {
+            fromPlayerProperties.get(i).newOwner(toPlayer);
+            toPlayerProperties.add(fromPlayerProperties.get(i));
+            fromPlayerProperties.remove(i);
+        }
+        for(int i = 0; i < toPlayerProperties.size(); i++)
+        {
+            toPlayerProperties.get(i).newOwner(toPlayer);
+            fromPlayerProperties.add(toPlayerProperties.get(i));
+            toPlayerProperties.remove(i);
+        }
+    }
+    
+    public static void addHouse(Player currentPlayer, Property property)
+    {
+        char propertyColour = property.getColour();
+        ArrayList<Property> currentPlayerProps = currentPlayer.getProperties();
+        Property checkProperty;
+        int numOfColour = 0;
+        int ownedNumOfColour = 0;
+        for(int i = 0; i < board.length; i++)
+        {
+            if(board[i] instanceof Property)
+            {
+                checkProperty = (Property) board[i];
+                if(checkProperty.getColour() == propertyColour)
+                {
+                    numOfColour++;
+                }
+            }
+        }
+        
+        for(int i = 0; i < currentPlayerProps.size(); i++)
+        {
+            if(currentPlayerProps.get(i).getColour() == propertyColour)
+            {
+                ownedNumOfColour++;
+            }
+        }
+        
+        if(ownedNumOfColour == numOfColour)
+        {
+            // Add rent prices!!!!!!!!!!!!!!!!!!!!!!!!
+        }
+    }
 }

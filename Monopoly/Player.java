@@ -28,7 +28,7 @@ public class Player
         properties.add(newProperty);
     }
     
-    public Player(String name,  int playerNum)
+    public Player(String name, int playerNum)
     {
         this.name = name;
         money = 1500;
@@ -112,11 +112,6 @@ public class Player
     public void addMoney (double amount)
     {
       money += amount;   
-    }
-    
-    public void subtractMoney(double amount)
-    {
-        money -= amount;
     }
     
     public boolean transaction(double amount)

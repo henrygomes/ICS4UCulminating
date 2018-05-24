@@ -170,7 +170,7 @@ public class MonopolyGame implements Game
         System.out.println ("Money: $" + player.getMoney());
         System.out.println ("On space: " + board[player.getLocation()].getName ());
     }
-
+    
     public static void buyProperty (Player player, Property property)
     {
         System.out.print ("do you want to buy: " + property.getName() + "? (yes, or no)");
@@ -235,11 +235,8 @@ public class MonopolyGame implements Game
     
     public static void unMortgageProperty(Player currentPlayer, Property property)
     {
-        if(currentPlayer.getMoney() >= property.getMortgage())
-        {
-            currentPlayer.subtractMoney(property.getMortgage());
-            property.unMortgage();
-        }
+        pay(currentPlayer, property.getMortgage());
+        property.unMortgage();
     }
     
     /**
