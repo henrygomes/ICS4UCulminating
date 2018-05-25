@@ -92,8 +92,8 @@ public class Controller implements Initializable
     {
         int rand = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         return(rand);
-    }
-
+    }    
+    
     public void getPlayerStatus(int p)
     {
         double playerMoney = players[p].getMoney();
@@ -269,6 +269,22 @@ public class Controller implements Initializable
         pay(currentPlayer, property.getMortgage());
         property.unMortgage();
     }
+    
+    public void getTrade( ArrayList<Property> player1,  ArrayList<Property> player2, String namePlayer1, String namePlayer2, Player playerObj1, Player playerObj2)
+    {
+        ArrayList<Property> return1 = new ArrayList<Property>();
+        ArrayList<Property> return2 = new ArrayList<Property>();
+        
+        ArrayList<Property>[] tradeReturnValue =  TradeBox.display("Trade Menu", player1, player2, namePlayer1, namePlayer2, "");
+            
+        for (int x = 0; x < tradeReturnValue[0].size(); x++)
+            player1.add(tradeReturnValue[0].get(x));
+
+        for (int x = 0; x < tradeReturnValue[0].size(); x++)
+            player1.add(tradeReturnValue[0].get(x));
+        
+        trade(playerObj1, playerObj2, return1, return2);    
+    } 
     
     /**
      * This method creates the option for players to trade properties and money between eachother. 

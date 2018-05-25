@@ -1,5 +1,3 @@
- 
-
 import java.util.*;
 //import javafx.beans.property.Property;
 import javafx.scene.control.Button;
@@ -30,7 +28,7 @@ public class TradeBox
         ComboBox<String> player1 = new ComboBox<>();
         player1.setPromptText(message1);
         player1.setTooltip(new Tooltip(tip));
-        
+
         ComboBox<String> player2 = new ComboBox<>();
         player2.setPromptText(message2);
         player2.setTooltip(new Tooltip(tip));
@@ -52,17 +50,36 @@ public class TradeBox
         Button closeButton = new Button("Close Trade");
 
         tradeButtonPlayer1.setOnAction(e -> {
+            int match1 = 0;
+            int numProperty1 = 0;
             for (int x = 0; x < info1size; x++) {
                 if (player1.getValue() == info1.get(x).getName())
-                    trade1.add(info1.get(x));
+                    numProperty1 = x;
             }
-
+            for (int j = 0; j < trade1.size(); j++) {
+                if (trade1.get(j) == info1.get(numProperty1))
+                    match1 = 1;
+            }
+                if (match1 == 0) {
+                    System.out.println("in match");
+                    trade1.add(info1.get(numProperty1));
+                }
         });
 
         tradeButtonPlayer2.setOnAction(e -> {
+            int match2 = 0;
+            int numProperty2 = 0;
             for (int x = 0; x < info2size; x++) {
                 if (player2.getValue() == info2.get(x).getName())
-                    trade2.add(info2.get(x));
+                    numProperty2 = x;
+            }
+            for (int j = 0; j < trade2.size(); j++) {
+                if (trade2.get(j) == info2.get(numProperty2))
+                    match2 = 1;
+            }
+            if (match2 == 0) {
+                System.out.println("in match");
+                trade2.add(info2.get(numProperty2));
             }
         });
 
@@ -75,7 +92,6 @@ public class TradeBox
         tradeButton.setOnAction(e -> {
             tradeReturn[0] = trade1;
             tradeReturn[1] = trade2;
-            System.out.println("returning");
             window.close();
         });
 
@@ -111,3 +127,4 @@ public class TradeBox
 
     }
 }
+
