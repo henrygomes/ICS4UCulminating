@@ -270,21 +270,61 @@ public class Controller implements Initializable
         property.unMortgage();
     }
     
+    public void tradeInfo()
+    {
+        ArrayList<Property> player1 = new ArrayList<Property>();
+        ArrayList<Property> player2 = new ArrayList<Property>();
+        int match = 0;
+
+        Player[] intArray = new Player[state.numPlayers];
+
+        if (players[state.getCurrentPlayer()].getProperties() == null){//if the player has property
+            AlertBox.display("Error!", "You Have No Property To Trade!");//alerts the user they have no property
+            return;
+        }
+
+        for (int i = 0; i< state.numPlayers; i++)
+        {
+            if(players[i].getProperties() != null){ //not adding players with no cards
+                intArray[i] = players[i];
+                match = 1;
+            }
+
+            if (match == 0){ //if no players have property
+                AlertBox.display("Error!", "There Is No One To Trade With!");//calling an alert box warning the user
+                return;
+            }
+        }
+
+        String currentPlayerName = players[state.getCurrentPlayer()].getName();
+        System.out.println("current Player " + currentPlayerName);
+        int returnPlayerNum = NameSelectBox.display("Name Select", intArray,"Please Select a Player To Trade With", "", currentPlayerName);
+
+        getTrade(players[state.getCurrentPlayer()].getProperties(), players[returnPlayerNum].getProperties(), players[state.getCurrentPlayer()].getName(), players[returnPlayerNum].getName(), players[state.getCurrentPlayer()], players[state.getCurrentPlayer()]);
+    }
+
     public void getTrade( ArrayList<Property> player1,  ArrayList<Property> player2, String namePlayer1, String namePlayer2, Player playerObj1, Player playerObj2)
     {
+        System.out.println(player1);
+        System.out.println(player2);
+        System.out.println(namePlayer1);
+        System.out.println(namePlayer2);
+        System.out.println(playerObj1);
+        System.out.println(playerObj2);
+
         ArrayList<Property> return1 = new ArrayList<Property>();
         ArrayList<Property> return2 = new ArrayList<Property>();
-        
+
         ArrayList<Property>[] tradeReturnValue =  TradeBox.display("Trade Menu", player1, player2, namePlayer1, namePlayer2, "");
-            
+
         for (int x = 0; x < tradeReturnValue[0].size(); x++)
             player1.add(tradeReturnValue[0].get(x));
 
         for (int x = 0; x < tradeReturnValue[0].size(); x++)
             player1.add(tradeReturnValue[0].get(x));
-        
-        trade(playerObj1, playerObj2, return1, return2);    
-    } 
+
+        //trade(playerObj1, playerObj2, return1, return2);
+    }
     
     /**
      * This method creates the option for players to trade properties and money between eachother. 

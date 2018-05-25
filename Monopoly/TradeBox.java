@@ -16,7 +16,6 @@ public class TradeBox
 
     public static ArrayList<Property>[] display(String title, ArrayList<Property> info1, ArrayList<Property> info2, String message1, String message2, String tip)
     {
-        System.out.println("in Trade");
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -60,10 +59,9 @@ public class TradeBox
                 if (trade1.get(j) == info1.get(numProperty1))
                     match1 = 1;
             }
-                if (match1 == 0) {
-                    System.out.println("in match");
-                    trade1.add(info1.get(numProperty1));
-                }
+            if (match1 == 0) {
+                trade1.add(info1.get(numProperty1));
+            }
         });
 
         tradeButtonPlayer2.setOnAction(e -> {
@@ -78,7 +76,6 @@ public class TradeBox
                     match2 = 1;
             }
             if (match2 == 0) {
-                System.out.println("in match");
                 trade2.add(info2.get(numProperty2));
             }
         });
