@@ -307,7 +307,7 @@ public class Controller implements Initializable
     
     public static void addHouse(Player currentPlayer, Property property)
     {
-        char propertyColour = property.getColour();
+         char propertyColour = property.getColour();
         ArrayList<Property> currentPlayerProps = currentPlayer.getProperties();
         Property checkProperty;
         int numOfColour = 0;
@@ -334,7 +334,15 @@ public class Controller implements Initializable
         
         if(ownedNumOfColour == numOfColour)
         {
-            // Add rent prices!!!!!!!!!!!!!!!!!!!!!!!!
+            if(property.getLocation() > 1 && property.getLocation() < 10)
+            {
+                if(currentPlayer.getMoney() >= 50)
+                {
+                    /*
+                     * Do what i said i was going to do!
+                     */
+                }
+            }
         }
     }
 }
