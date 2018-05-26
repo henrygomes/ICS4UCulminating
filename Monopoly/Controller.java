@@ -347,11 +347,12 @@ public class Controller implements Initializable
     
     public static void addHouse(Player currentPlayer, Property property)
     {
-         char propertyColour = property.getColour();
+        char propertyColour = property.getColour();
         ArrayList<Property> currentPlayerProps = currentPlayer.getProperties();
         Property checkProperty;
         int numOfColour = 0;
         int ownedNumOfColour = 0;
+        int houseCost = 0;
         for(int i = 0; i < board.length; i++)
         {
             if(board[i] instanceof Property)
@@ -372,15 +373,32 @@ public class Controller implements Initializable
             }
         }
         
+        if(propertyColour == 'd' || propertyColour == 'g')
+        {
+            houseCost = 200;
+        }
+        else if(propertyColour == 'r' || propertyColour == 'y')
+        {
+            houseCost = 150;
+        }
+        else if(propertyColour == 'p' || propertyColour == 'o')
+        {
+            houseCost = 100;
+        }
+        else if(propertyColour == 'l' || propertyColour == 'b')
+        {
+            houseCost = 50;
+        }
+        
         if(ownedNumOfColour == numOfColour)
         {
             if(property.getLocation() > 1 && property.getLocation() < 10)
             {
-                if(currentPlayer.getMoney() >= 50)
+                if(currentPlayer.getMoney() >= houseCost)
                 {
-                    /*
-                     * Do what i said i was going to do!
-                     */
+                    currentPlayer.removeMoney(houseCost);
+                    //Property.addHouses();
+                    //Property.addRent();
                 }
             }
         }

@@ -38,7 +38,7 @@ public class Property extends Space
         return name;
     }
     
-    public char getColour ()
+    public char getColour()
     {
         return colour;
     }
@@ -76,6 +76,14 @@ public class Property extends Space
         else if(numberOfHouses == 4)
         {
             rent *= 1.5;
+        }
+    }
+    
+    public void addHouses()
+    {
+        if(numberOfHouses < 5)
+        {
+            numberOfHouses++;
         }
     }
     

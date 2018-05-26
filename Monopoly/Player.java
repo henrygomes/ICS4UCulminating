@@ -114,6 +114,11 @@ public class Player
       money += amount;   
     }
     
+    public void removeMoney(double amount)
+    {
+        money -= amount;
+    }
+    
     public boolean transaction(double amount)
     {
         if (money >=amount)
