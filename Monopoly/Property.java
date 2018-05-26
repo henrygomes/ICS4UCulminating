@@ -63,7 +63,7 @@ public class Property extends Space
         return rent;
     }
     
-    public void addRent(double amount)
+    public void addRent()
     {
         if(numberOfHouses == 1)
         {

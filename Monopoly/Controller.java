@@ -397,8 +397,8 @@ public class Controller implements Initializable
                 if(currentPlayer.getMoney() >= houseCost)
                 {
                     currentPlayer.removeMoney(houseCost);
-                    //Property.addHouses();
-                    //Property.addRent();
+                    property.addHouses();
+                    property.addRent();
                 }
             }
         }
