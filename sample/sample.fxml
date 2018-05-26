@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <TextField promptText="Enter Something">
+         <VBox.margin>
+            <Insets left="300.0" right="300.0" />
+         </VBox.margin>
+      </TextField>
+      <Region prefHeight="83.0" prefWidth="800.0" />
+      <Button mnemonicParsing="false" onAction="#rollDice" text="Roll Dice">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Region prefHeight="83.0" prefWidth="800.0" />
+      <Button mnemonicParsing="false" onAction="#tradeInfo" text="Trade">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Region prefHeight="200.0" prefWidth="200.0" />
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="moneyAmount" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerTurn" text="TestLabel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="rollValue" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</VBox>

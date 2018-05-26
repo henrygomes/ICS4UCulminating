@@ -1,0 +1,157 @@
+40
+
+OtherSpace Start
+0 0 0
+Property Mediterranean Avenue 
+1 60 2 b
+
+OtherSpace Community Chest
+2 1 0
+
+Property Baltic Avenue
+
+3 60 4 b
+
+OtherSpace Tax
+ 
+4 0 200
+
+Property Reading Railroad
+
+5 200 25 s
+
+Property Oriental Avenue
+
+6 100 25 l
+
+OtherSpace Chance
+
+7 2 0
+
+Property Vermont Avenue
+
+8 100 6 l
+
+Property Connecticut Avenue
+
+9 120 8 l
+
+OtherSpace Jail
+
+10 0 0
+
+Property St. Charles Place
+
+11 140 10 p
+
+Property Electric Company
+
+12 150 0000000000 u
+
+Property States Avenue
+ 
+13 140 10 p
+
+Property Virginia Avenue
+
+14 160 14 p
+
+Property Pennsylvania Railroad
+
+15 200 25 s
+
+Property St. James Place
+
+16 180 14 o
+
+OtherSpace Community Chest
+
+17 1 0
+
+Property Tenessee Avenue
+
+18 180 14 o
+
+Property New York Avenue
+
+19 200 16 o
+
+OtherSpace Free Parking
+
+20 0 0
+
+Property Kentucky Avenue 
+
+21 220 18 r
+
+OtherSpace Chance
+
+22 2 0
+
+Property Indiana Avenue
+
+23 220 18 r
+
+Property Illinois Avenue
+
+24 240 18 r
+
+Property B. & O. Railroad
+
+25 200 25 s
+
+Property Atlantic Avenue
+
+26 260 22 y
+
+Property Ventnor
+
+27 260 22 y
+
+Property Water Works
+
+28 150 000000000 u
+
+Property Marvin Gardens
+
+29 280 24 y
+
+OtherSpace Go To Jail
+
+30 0 0
+
+Property Pacific Avenue
+
+31 300 26 g
+
+Property North Carolina Avenue
+
+32 300 26 g
+
+OtherSpace Community Chest 
+
+33 1 0
+
+Property Pennsylvania Avenue 
+
+34 320 28 g
+
+Property Short Line
+
+35 200 25 s
+
+OtherSpace Chance
+
+36 2 0
+
+Property Park Place
+
+37 350 35 d
+
+OtherSpace Tax
+
+38 0 200
+
+Property Boardwalk
+
+39 400 50 d
