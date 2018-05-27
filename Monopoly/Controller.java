@@ -35,8 +35,6 @@ public class Controller implements Initializable
     State state = new State();
     public static Player[] players = new Player[0];
     //ObservableList<storeContacts> contacts = FXCollections.observableArrayList();
-    File f = new File("contacts.txt");
-
 
     @FXML
     public Label moneyAmount;
@@ -46,7 +44,6 @@ public class Controller implements Initializable
 
     @FXML
     public Label rollValue;
-
 
 
     @Override
