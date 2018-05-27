@@ -10,7 +10,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,8 +25,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import javafx.scene.shape.*;
+import javafx.scene.paint.*;
 
 import static java.awt.SystemColor.text;
 
@@ -36,23 +38,41 @@ public class Controller implements Initializable
     public static Space[] board = boardCreation();
     State state = new State();
     public static Player[] players = new Player[0];
+    public static Token[] tokens = new Token[0];
+
     //ObservableList<storeContacts> contacts = FXCollections.observableArrayList();
 
     @FXML
-    public Label moneyAmount;
+    private Label moneyAmount;
 
     @FXML
-    public Label playerTurn;
+    private Label playerTurn;
 
     @FXML
-    public Label rollValue;
+    private Label rollValue;
+
+    @FXML
+    private AnchorPane BoardPane;
+
+    @FXML
+    private Label propName;
+
+    @FXML
+    private Label propRent;
+
+    @FXML
+    private Label propOwner;
+
+    @FXML
+    private Label propPrice;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        String[] name = {"Ian", "Henry", "Daniel"};
-        createGame(3, name);
+        //ArrayList<String> name = TradeBox.display();
+        String[] name = {"Ian", "Henry", "Daniel", "Bob"};
+        createGame(4, name);
     }
 
     public void createGame(int numPlayers, String[] name)
@@ -64,19 +84,29 @@ public class Controller implements Initializable
             players[i] = new Player (name[i], i);
         }
         state.setNumPlayers(players.length);
-        rollDice();
-        StringProperty stringName;
+        tokens = new Token[numPlayers];
+        for (int i = 0; i < numPlayers; i++)
+        {
+            tokens[i] = new Token (i);
+        }
+
+        for (int i = 0; i < numPlayers; i++)
+        {
+            BoardPane.getChildren().add(tokens[i].getCircle());
+        }
+
     }
 
+    @FXML
     public void rollDice()
     {
         int dice1 = roll();
         int dice2 = roll();
         int totalRoll = dice1+dice2;
         int currentPlayer = state.getNextPlayer();
-
-        System.out.println(currentPlayer);
+        state.setCurrentPlayer(state.getNextPlayer());
         players[currentPlayer].move(totalRoll);
+        tokens[currentPlayer].move(players[currentPlayer].getLocation(), currentPlayer);
         System.out.println("You Rolled: " + dice1 + " " + dice2 + " Current Player: " + currentPlayer + " Position: " + players[currentPlayer].getLocation() + " NumPlayers " + state.getNumPlayers());
         turn(players[state.getCurrentPlayer()], -1);
         if (dice1 == dice2)
@@ -85,9 +115,8 @@ public class Controller implements Initializable
             state.setNextPlayer((currentPlayer+1)%state.getNumPlayers());
         }
 
-
-        //getPlayerStatus(currentPlayer);
-        //getPropertyStatus(players[currentPlayer].getLocation());
+        getPlayerStatus(currentPlayer, totalRoll);
+        getPropertyStatus(players[currentPlayer].getLocation());
 
     }
 
@@ -97,23 +126,48 @@ public class Controller implements Initializable
         return(rand);
     }
 
-    public void getPlayerStatus(int p)
+
+    public void getPlayerStatus(int p, int r)
     {
-        double playerMoney = players[p].getMoney();
-        String playerName = players[p].getName();
-        System.out.println("Player Money: " + playerMoney + " Player Name: " + playerName);
+        double m = players[p].getMoney();
+        String mString = String.valueOf(m);
+        moneyAmount.setText(mString);
+        playerTurn.setText(players[p].getName());
+        String rString = String.valueOf(r);
+        rollValue.setText(rString);
     }
 
-    public void getPropertyStatus(int s)
+    public void getPropertyStatus(int p)
     {
-        if (board[players[state.getCurrentPlayer()].getLocation()] instanceof Property);
-        System.out.print("");
+        if (board[p] instanceof Property)
+        {
+            String name = ((Property)board[p]).getName();
+            double rent = ((Property)board[p]).getRent();
+            String rentString = String.valueOf(rent);
+            Player player = ((Property)board[p]).getPlayer();
+            String stringPlayer;
+            if(player != null){
+                player.getName();
+                stringPlayer = player.getName();
+            }
+            else{
+                stringPlayer = "None";
+            }
+            double price = ((Property)board[p]).getPrice();
+            String priceString = String.valueOf(price);
+
+            propName.setText(name);
+            propRent.setText(rentString);
+            propPrice.setText(priceString);
+            propOwner.setText(stringPlayer);
+        }
+
     }
 
     public void turn(Player player, int utilityMultiplier)
     {
         int playerLoc = players[state.getCurrentPlayer()].getLocation();
-        System.out.println("playerLoc: " + playerLoc);
+        System.out.println(playerLoc);
         if (utilityMultiplier <0)
             utilityMultiplier = 4;
         if (board[playerLoc] instanceof Property)
@@ -126,10 +180,10 @@ public class Controller implements Initializable
             {
                 pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(playerLoc));
             }
-            else
-            {
-                buyProperty(player, ((Property)board[playerLoc]));
-            }
+            //else
+            //{
+                //buyProperty(player, ((Property)board[playerLoc]));
+            //}
         }
 
         else
@@ -186,7 +240,20 @@ public class Controller implements Initializable
 
     }
 
-    public static void buyProperty (Player player, Property property)
+    public void buy()
+    {
+        int playerLoc = players[state.getCurrentPlayer()].getLocation();
+        if (board[playerLoc] instanceof Property)
+        {
+            buyProperty(players[state.getCurrentPlayer()], ((Property)board[playerLoc]));
+        }
+        if (board[playerLoc] instanceof OtherSpace)
+        {
+
+        }
+    }
+
+    public void buyProperty (Player player, Property property)
     {
         Boolean result = ConfirmBox.display("Are You Sure?", "Are You Sure You Would Like To Buy This Property");
         if (result == true && pay (player, property.getPrice()))
@@ -222,7 +289,7 @@ public class Controller implements Initializable
     public static Space[] boardCreation()
     {
         try {
-            File file = new File ("C:\\Users\\Ian\\IdeaProjects\\ActualMonopoly\\src\\sample\\BoardConfig.txt");
+            File file = new File ("BoardConfig.txt");
             Scanner scanFile = new Scanner (file);
             String firstLine = scanFile.nextLine();
             Scanner scan = new Scanner (firstLine);

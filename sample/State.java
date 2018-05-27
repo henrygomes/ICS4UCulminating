@@ -9,6 +9,7 @@ public class State
     int d1;
     int d2;
 
+
     public State()
     {
         d1 = 0;
