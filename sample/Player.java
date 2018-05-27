@@ -13,7 +13,7 @@ public class Player
     private String name;
     private double money;
     private int location = 0;
-    private ArrayList<Property> properties;
+    private ArrayList<Property> properties = new ArrayList <Property>();
     private boolean hasLost = false;
     private int playerNum;
     private int doubles = 0;

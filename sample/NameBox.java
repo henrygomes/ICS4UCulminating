@@ -40,6 +40,7 @@ public class NameBox
             names.add(name2.getText());
             names.add(name3.getText());
             names.add(name4.getText());
+            window.close();
         });
 
         GridPane grid = new GridPane();
@@ -58,14 +59,14 @@ public class NameBox
         GridPane.setConstraints(name1, 1, 0);
         GridPane.setConstraints(name2, 1, 1);
         GridPane.setConstraints(name3, 1, 2);
-        GridPane.setConstraints(name4, 1, 2);
+        GridPane.setConstraints(name4, 1, 3);
         GridPane.setConstraints(selectButton, 2, 0);
 
 
         grid.getChildren().addAll(label1, label2, label3, label4, name1, name2, name3, name4, selectButton);
 
 
-        Scene scene = new Scene(grid, 400, 50);
+        Scene scene = new Scene(grid, 400, 200);
         window.setScene(scene);
         window.showAndWait();
         return names;

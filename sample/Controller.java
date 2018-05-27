@@ -70,7 +70,7 @@ public class Controller implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        //ArrayList<String> name = TradeBox.display();
+        //ArrayList<String> nameList = NameBox.display();
         String[] name = {"Ian", "Henry", "Daniel", "Bob"};
         createGame(4, name);
     }
@@ -289,7 +289,7 @@ public class Controller implements Initializable
     public static Space[] boardCreation()
     {
         try {
-            File file = new File ("BoardConfig.txt");
+            File file = new File ("C:\\Users\\Ian\\IdeaProjects\\ActualMonopoly\\src\\sample\\BoardConfig.txt");
             Scanner scanFile = new Scanner (file);
             String firstLine = scanFile.nextLine();
             Scanner scan = new Scanner (firstLine);
@@ -358,6 +358,7 @@ public class Controller implements Initializable
         {
             if(players[i].getProperties() != null){ //not adding players with no cards
                 intArray[i] = players[i];
+                System.out.println(players[i].getName());
                 match = 1;
             }
 

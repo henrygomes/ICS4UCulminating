@@ -30,7 +30,6 @@ public class SelectBox
             comboBox.getItems().add(info[x]);
 
 
-
         Button selectButton = new Button("Select");
         Button backButton = new Button("Back");
 
