@@ -289,7 +289,7 @@ public class Controller implements Initializable
     public static Space[] boardCreation()
     {
         try {
-            File file = new File ("C:\\Users\\Ian\\IdeaProjects\\ActualMonopoly\\src\\sample\\BoardConfig.txt");
+            File file = new File ("C://Users//Henry//IdeaProjects//monopolyInPRogress//src//sample//BoardConfig.txt");
             Scanner scanFile = new Scanner (file);
             String firstLine = scanFile.nextLine();
             Scanner scan = new Scanner (firstLine);
