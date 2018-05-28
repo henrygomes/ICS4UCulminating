@@ -6,14 +6,12 @@ package Monopoly;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class OtherSpace extends Space
+public class OtherSpace extends Space// OtherSpaces are all spaces on the board excluding Properties
 {
    private int typeOfCard;//type of card to pick up, 0 if none
 
-   private double tax;
-   
-   //need to ADD the elictrical 
-   public OtherSpace(String name, int typeOfCard, double tax, int location)
+   private double tax;//tax to pay 
+   public OtherSpace(String name, int typeOfCard, double tax, int location)//initialization
    {
        this.name = name;
        this.typeOfCard = typeOfCard;
