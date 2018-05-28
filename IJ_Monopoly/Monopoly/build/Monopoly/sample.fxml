@@ -60,7 +60,7 @@
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Sell">
+                        <Button mnemonicParsing="false" onAction="#mortgageInfo" text="Mort">
                            <font>
                               <Font size="24.0" />
                            </font>

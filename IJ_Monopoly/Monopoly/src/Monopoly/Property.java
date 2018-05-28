@@ -9,14 +9,14 @@ import javafx.scene.paint.*;
  */
 public class Property extends Space
 {
-    private Player player;
-    private double price;
-    private double rent;
-    private char colour;
-    private boolean isPropMortgaged = false;
+    private Player player;//who owns this property
+    private double price;//cpst of initially buying the property
+    private double rent;//cost of landing on space when owned
+    private char colour;//the car value to show what colour the property is and what group it belongs to
+    private boolean isPropMortgaged = false;//property cannot be created mortgaged
     private int numberOfHouses = 0;
-    private String name;
-    public Property(String name, int loc, double cost, double rent, char colour)
+    private String name;//name of property
+    public Property(String name, int loc, double cost, double rent, char colour)//initializing the property
     {
         this.name = name;
         this.location = loc;
@@ -24,8 +24,11 @@ public class Property extends Space
         this.price = cost;
         this.rent = rent;
     }
-
-    public Player getOwner()
+    public void setRent (double newRent)
+    {
+        rent = newRent;
+    }
+    public Player getOwner()// get method for the player that owns this
     {
         return this.player;
     }
@@ -50,7 +53,7 @@ public class Property extends Space
         return colour;
     }
     
-    public void newOwner(Player player)
+    public void newOwner(Player player)//assigns a new owner
     {
         this.player = player;
     }
@@ -69,44 +72,28 @@ public class Property extends Space
     {
         return rent;
     }
-    
-    public void addRent(double amount)
-    {
-        if(numberOfHouses == 1)
-        {
-            rent *= 5;
-        }
-        else if(numberOfHouses > 1 && numberOfHouses > 3)
-        {
-            rent *= 3;
-        }
-        else if(numberOfHouses == 4)
-        {
-            rent *= 1.5;
-        }
-    }
-    
-    public double getRent(int roll)
+        
+    public double getRent(int roll)//if the property is a utility
     {
         return roll * 4;
     }
 
-    public double getMortgage()
+    public double getMortgage()//get mortgage value
     {
         return price / 2;
     }
     
-    public boolean getIsMortgage()
+    public boolean getIsMortgage()// get if the property is mortgaged
     {
         return isPropMortgaged;
     }
     
-    public void isMortgaged()
+    public void isMortgaged()//sets the boolean mortgaged to true
     {
         isPropMortgaged = true;
     }
 
-    public Color getColor()
+    public Color getColor()//returns the color value as a colour object
     {
         if(this.colour == 'b'){
             Color c = Color.rgb(151, 85, 57);
@@ -146,7 +133,7 @@ public class Property extends Space
         }
     }
     
-    public void unMortgage()
+    public void unMortgage()//sets mortgage to true
     {
         isPropMortgaged = false;
     }

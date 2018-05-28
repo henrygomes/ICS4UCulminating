@@ -1,4 +1,4 @@
-package src.Monopoly;
+package Monopoly;
 /**
  * Write a description of class Cards here.
  *
