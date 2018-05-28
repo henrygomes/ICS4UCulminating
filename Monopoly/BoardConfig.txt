@@ -22,7 +22,7 @@ Property Reading Railroad
 
 Property Oriental Avenue
 
-6 100 25 l
+6 100 6 l
 
 OtherSpace Chance
 
