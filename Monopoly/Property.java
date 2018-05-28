@@ -73,7 +73,7 @@ public class Property extends Space
         {
             rent *= 3;
         }
-        else if(numberOfHouses == 4)
+        else if(numberOfHouses == 4 || numberOfHouses == 5)
         {
             rent *= 1.5;
         }
@@ -81,7 +81,7 @@ public class Property extends Space
     
     public void addHouses()
     {
-        if(numberOfHouses < 5)
+        if(numberOfHouses <= 5)
         {
             numberOfHouses++;
         }

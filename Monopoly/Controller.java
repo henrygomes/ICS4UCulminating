@@ -37,6 +37,7 @@ public class Controller implements Initializable
     //ObservableList<storeContacts> contacts = FXCollections.observableArrayList();
     File f = new File("contacts.txt");
 
+
     @FXML
     public Label moneyAmount;
 
@@ -45,6 +46,7 @@ public class Controller implements Initializable
 
     @FXML
     public Label rollValue;
+
 
 
     @Override
@@ -79,7 +81,7 @@ public class Controller implements Initializable
             currentPlayer++;
         if (currentPlayer >= state.getNumPlayers())
             currentPlayer = 0;
-
+        
         state.setCurrentPlayer(currentPlayer);
         getPlayerStatus(currentPlayer-1);
         //getPropertyStatus(players[currentPlayer].getLocation());
@@ -90,7 +92,7 @@ public class Controller implements Initializable
     {
         int rand = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         return(rand);
-    }    
+    }
 
     public void getPlayerStatus(int p)
     {
@@ -102,7 +104,7 @@ public class Controller implements Initializable
     public void getPropertyStatus(int s)
     {
         if (board[players[state.getCurrentPlayer()].getLocation()] instanceof Property);
-        System.out.print("");
+            System.out.print("");
     }
 
     public void turn(Player player, int utilityMultiplier)
@@ -141,11 +143,7 @@ public class Controller implements Initializable
         if (hasPlayerLost(player))
             player.hasLost();
     }
-    
-    /**
-     * Removes money from a player's "bank account". If the player does not have enough money 
-     * it will enter the bankrupcy method.
-     */
+
     public static boolean pay (Player fromPlayer, double amount)
     {
         if (fromPlayer.transaction(amount))
@@ -184,10 +182,7 @@ public class Controller implements Initializable
         //asks if player wants to sell stuff
 
     }
-    
-    /**
-     * Lets the user buy property. Then the property is added to the players array of properties.
-     */
+
     public static void buyProperty (Player player, Property property)
     {
         Boolean result = ConfirmBox.display("Are You Sure?", "Are You Sure You Woul Like To Buy This Property");
@@ -201,10 +196,7 @@ public class Controller implements Initializable
             System.out.println ("Did not buy " + property.getName());
         }
     }
-    
-    /**
-     * Transfers money from one player to another.
-     */
+
     public static boolean pay (Player fromPlayer, Player toPlayer, double amount)
     {
         if (fromPlayer.transaction(amount))
@@ -221,6 +213,7 @@ public class Controller implements Initializable
         }
         return false;
     }
+
 
     public static Space[] boardCreation()
     {
@@ -264,91 +257,24 @@ public class Controller implements Initializable
         }
         return null;
     }
-    
-    /**
-     * This method allows a player to mortgage a property and adds that amount to the players bank account.
-     */
+
     public static void mortgageProperty(Player currentPlayer, Property property)
     {
-        currentPlayer.addMoney(property.getMortgage());
-        property.isMortgaged();
+       currentPlayer.addMoney(property.getMortgage());
+       property.isMortgaged();
     }
     
-    /**
-     * This method allows a player to unmortage a property and removes that money from the players account.
-     */
     public static void unMortgageProperty(Player currentPlayer, Property property)
     {
         pay(currentPlayer, property.getMortgage());
         property.unMortgage();
     }
-
-    public void tradeInfo()
-    {
-        ArrayList<Property> player1 = new ArrayList<Property>();
-        ArrayList<Property> player2 = new ArrayList<Property>();
-        int match = 0;
-
-        Player[] intArray = new Player[state.numPlayers];
-
-        if (players[state.getCurrentPlayer()].getProperties() == null){//if the player has property
-            AlertBox.display("Error!", "You Have No Property To Trade!");//alerts the user they have no property
-            return;
-        }
-
-        for (int i = 0; i< state.numPlayers; i++)
-        {
-            if(players[i].getProperties() != null){ //not adding players with no cards
-                intArray[i] = players[i];
-                match = 1;
-            }
-
-            if (match == 0){ //if no players have property
-                AlertBox.display("Error!", "There Is No One To Trade With!");//calling an alert box warning the user
-                return;
-            }
-        }
-
-        String currentPlayerName = players[state.getCurrentPlayer()].getName();
-        System.out.println("current Player " + currentPlayerName);
-        int returnPlayerNum = NameSelectBox.display("Name Select", intArray,"Please Select a Player To Trade With", "", currentPlayerName);
-
-        getTrade(players[state.getCurrentPlayer()].getProperties(), players[returnPlayerNum].getProperties(), players[state.getCurrentPlayer()].getName(), players[returnPlayerNum].getName(), players[state.getCurrentPlayer()], players[state.getCurrentPlayer()]);
-    }
-
-    public void getTrade( ArrayList<Property> player1,  ArrayList<Property> player2, String namePlayer1, String namePlayer2, Player playerObj1, Player playerObj2)
-    {
-        System.out.println(player1);
-        System.out.println(player2);
-        System.out.println(namePlayer1);
-        System.out.println(namePlayer2);
-        System.out.println(playerObj1);
-        System.out.println(playerObj2);
-
-        ArrayList<Property> return1 = new ArrayList<Property>();
-        ArrayList<Property> return2 = new ArrayList<Property>();
-
-        ArrayList<Property>[] tradeReturnValue =  TradeBox.display("Trade Menu", player1, player2, namePlayer1, namePlayer2, "");
-
-        for (int x = 0; x < tradeReturnValue[0].size(); x++)
-            player1.add(tradeReturnValue[0].get(x));
-
-        for (int x = 0; x < tradeReturnValue[0].size(); x++)
-            player1.add(tradeReturnValue[0].get(x));
-
-        //trade(playerObj1, playerObj2, return1, return2);
-    }
-
+    
     /**
      * This method creates the option for players to trade properties and money between eachother. 
      */
     public static void trade(Player fromPlayer, Player toPlayer, ArrayList<Property> fromPlayerProperties, ArrayList<Property> toPlayerProperties)
     {
-        /*
-         * These for loops will trade players properties from one to another. The first loop adds 
-         * fromPlayer's properties to toPlayer's property array.
-         * The second does the opposite.
-         */
         for(int i = 0; i < fromPlayerProperties.size(); i++)
         {
             fromPlayerProperties.get(i).newOwner(toPlayer);
@@ -363,9 +289,6 @@ public class Controller implements Initializable
         }
     }
     
-    /**
-     * This method adds a house to a players property. Thus increasing the rent players will have to pay.
-     */
     public static void addHouse(Player currentPlayer, Property property)
     {
         char propertyColour = property.getColour();
@@ -373,12 +296,6 @@ public class Controller implements Initializable
         Property checkProperty;
         int numOfColour = 0;
         int ownedNumOfColour = 0;
-        int houseCost = 0;
-
-        /*
-         * This for loop collects the number of properties that have the same colour as the property 
-         * that the house is going on
-         */
         for(int i = 0; i < board.length; i++)
         {
             if(board[i] instanceof Property)
@@ -390,11 +307,7 @@ public class Controller implements Initializable
                 }
             }
         }
-
-        /*
-         * This for loop collects the number of properties owned by the player of a specific colour.
-         * This will help determine if the house will become purchasable.
-         */
+        
         for(int i = 0; i < currentPlayerProps.size(); i++)
         {
             if(currentPlayerProps.get(i).getColour() == propertyColour)
@@ -402,40 +315,17 @@ public class Controller implements Initializable
                 ownedNumOfColour++;
             }
         }
-
-        /*
-         * This if else colum will determine the price for the house.
-         */     
-        if(propertyColour == 'd' || propertyColour == 'g')
-        {
-            houseCost = 200;
-        }
-        else if(propertyColour == 'r' || propertyColour == 'y')
-        {
-            houseCost = 150;
-        }
-        else if(propertyColour == 'p' || propertyColour == 'o')
-        {
-            houseCost = 100;
-        }
-        else if(propertyColour == 'l' || propertyColour == 'b')
-        {
-            houseCost = 50;
-        }
-
-        /*
-         * This nested if statement will check if the currentPlayer has the required number of 
-         * properties, and if the currentPlayer has enough money to buy the house
-         * Then it will remove the money from the account, add the house to the player's property, and
-         * change the rent amount.
-         */
+        
         if(ownedNumOfColour == numOfColour)
         {
-            if(currentPlayer.getMoney() >= houseCost)
+            if(property.getLocation() > 1 && property.getLocation() < 10)
             {
-                currentPlayer.removeMoney(houseCost);
-                property.addHouses();
-                property.addRent();
+                if(currentPlayer.getMoney() >= 50)
+                {
+                    /*
+                     * Do what i said i was going to do!
+                     */
+                }
             }
         }
     }
