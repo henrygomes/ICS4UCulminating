@@ -1,6 +1,6 @@
 package Monopoly;
 
-
+import javafx.scene.paint.*;
 /**
  * Write a description of class Property here.
  * 
@@ -104,6 +104,46 @@ public class Property extends Space
     public void isMortgaged()
     {
         isPropMortgaged = true;
+    }
+
+    public Color getColor()
+    {
+        if(this.colour == 'b'){
+            Color c = Color.rgb(151, 85, 57);
+            return c;
+        }
+        if(this.colour == 'l'){
+            Color c = Color.rgb(163,223,249);
+            return c;
+        }
+        if (this.colour == 'p'){
+            Color c = Color.rgb(156,122,79);
+            return c;
+        }
+        if (this.colour == 'o'){
+            Color c = Color.rgb(253,146,39);
+            return c;
+        }
+        if (this.colour == 'r'){
+            Color c = Color.rgb(246,42,29);
+            return c;
+        }
+        if (this.colour == 'y'){
+            Color c = Color.rgb(255,239,53);
+            return c;
+        }
+        if (this.colour == 'g'){
+            Color c = Color.rgb(0,174,97);
+            return c;
+        }
+        if (this.colour == 'd'){
+            Color c = Color.rgb(0,115,184);
+            return c;
+        }
+        else{
+            Color c = Color.rgb(0,0,0);
+            return c;
+        }
     }
     
     public void unMortgage()

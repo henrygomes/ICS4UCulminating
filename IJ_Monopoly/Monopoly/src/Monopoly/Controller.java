@@ -117,6 +117,7 @@ public class Controller implements Initializable
         state.setD1(dice1);
         state.setD2(dice2);
         int totalRoll = dice1+dice2;
+        totalRoll = 2;
         int currentPlayer = state.getNextPlayer();
         state.setCurrentPlayer(state.getNextPlayer());
         players[currentPlayer].move(totalRoll);
@@ -144,6 +145,7 @@ public class Controller implements Initializable
 
     public void showProperties(int c)
     {
+        int playerLoc = players[state.getCurrentPlayer()].getLocation();
         ObservableList<String> nameList =FXCollections.observableArrayList();
         ArrayList<Property> playerProp = new ArrayList<Property>();
         int propOwned = players[c].getProperties().size();
@@ -152,10 +154,18 @@ public class Controller implements Initializable
             nameList.add("Properties:");
             for (int i = 0; i < propOwned; i++){
                 Property p = playerProp.get(i);
-                String n = p.getName();
-                nameList.add(n);
+                if (((Property)board[p.getLocation()]).getIsMortgage() == true){ //Checks to see if property is mortgaged
+                    Color color = ((Property)board[p.getLocation()]).getColor();
+                    String n = p.getName();
+                    nameList.add(n + " (Mortgaged)");
+                }
+                else{
+                    String n = p.getName();
+                    nameList.add(n);
+                }
             }
         }
+
         else{
             nameList.add("You Don't Own Any Properties Yet!");
         }
@@ -248,14 +258,12 @@ public class Controller implements Initializable
             utilityMultiplier = 4;
         if (board[playerLoc] instanceof Property)
         {
-            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
+            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u' && ((Property)board[playerLoc]).getIsMortgage() == false)
             {
-                System.out.println("q 1");
                 pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()));
             }
-            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u')
+            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u' && ((Property)board[playerLoc]).getIsMortgage() == false)
             {
-                System.out.println("q 2");
                 pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(playerLoc));
             }
 
@@ -265,14 +273,12 @@ public class Controller implements Initializable
         {
             if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
             {
-                System.out.println("q 3");
                 pay(player, ((OtherSpace)board[playerLoc]).getTax());
             }
             else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
             {
-                System.out.println("q 4");
                 System.out.println("Got to card - need to fix card class as it is calling Monopoly");
-                //Card.CardPickup (player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
+                //CardPickup(player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
             }
         }
         if (hasPlayerLost(player))
@@ -419,16 +425,74 @@ public class Controller implements Initializable
         return null;
     }
 
-    public static void mortgageProperty(Player currentPlayer, Property property)
+    public void mortgageInfo()
+    {
+        if (players[state.getCurrentPlayer()].getInJail() == true){//makes sure the player is not in jail
+            AlertBox.display("Error!", "You Cant Buy While In Jail!");//alerts the user they cant trade in jail
+            return;
+        }
+
+        if(players[state.getCurrentPlayer()].getProperties().size() == 0){//makes sure the player owns property
+            AlertBox.display("Error!", "You Don't Own Any Property!");//alerts the user they cant have no property to mortgage
+            return;
+        }
+
+        boolean sucess = false;// used keep track if the mortgage is successful
+        ArrayList<Property> mortgagedProperties = new ArrayList<Property>();//creating array lists for the properties that will fill the selection boxes
+        ArrayList<Property> unMortgagedProperties = new ArrayList<>();
+
+        for(int i = 0; i < players[state.getCurrentPlayer()].getProperties().size(); i++){
+            if(players[state.getCurrentPlayer()].getProperties().get(i).getIsMortgage() == true){
+                mortgagedProperties.add(players[state.getCurrentPlayer()].getProperties().get(i));
+            }
+            else{
+                unMortgagedProperties.add(players[state.getCurrentPlayer()].getProperties().get(i));
+            }
+        }
+
+        boolean choice = MortgageBox.display("Mortgage", "What Would You Like To Do?");//asks the player if they want to mortgage or un mortgage
+
+        if (choice == true && unMortgagedProperties.size() > 0){
+            Property property = SelectBoxArrayList.display("Mortgage", unMortgagedProperties, "Available Properties", "Properties");
+            if (property == null){//exits code if they cancel or close the window
+                return;
+            }
+            mortgageProperty(players[state.getCurrentPlayer()], property);
+            sucess = true;
+        }
+        else if (mortgagedProperties.size() > 0){
+            Property property = SelectBoxArrayList.display("Un Mortgage", mortgagedProperties, "Available Properties", "Properties");
+            if (property == null){//exits code if they cancel or close the window
+                return;
+            }
+            unMortgageProperty(players[state.getCurrentPlayer()], property);
+            sucess = true;
+        }
+        if (choice == true && unMortgagedProperties.size() > 0 && sucess == false){// used to decide what alert to give to the user
+            AlertBox.display("Error", "No Cards Available To Mortgage");//calls the alertBox with the error
+        }
+        if (choice == true && mortgagedProperties.size() > 0 && sucess == false){
+            AlertBox.display("Error", "No Cards Available To Un Mortgage");//calls the alert box with the error
+        }
+
+    }
+
+    public void mortgageProperty(Player currentPlayer, Property property)
     {
         currentPlayer.addMoney(property.getMortgage());
         property.isMortgaged();
+        showProperties(state.getCurrentPlayer());
+        getPlayerStatus(state.getCurrentPlayer(), (state.getD1() + state.getD2()));
+        getPropertyStatus(players[state.getCurrentPlayer()].getLocation());
     }
 
-    public static void unMortgageProperty(Player currentPlayer, Property property)
+    public void unMortgageProperty(Player currentPlayer, Property property)
     {
         pay(currentPlayer, property.getMortgage());
         property.unMortgage();
+        showProperties(state.getCurrentPlayer());
+        getPlayerStatus(state.getCurrentPlayer(), (state.getD1() + state.getD2()));
+        getPropertyStatus(players[state.getCurrentPlayer()].getLocation());
     }
 
     public void tradeInfo()
@@ -463,10 +527,14 @@ public class Controller implements Initializable
             return;
         }
 
+
         String currentPlayerName = players[state.getCurrentPlayer()].getName();
         System.out.println("current Player " + currentPlayerName);
-        int returnPlayerNum = NameSelectBox.display("Name Select", intArray,"Please Select a Player To Trade With", "", currentPlayerName);
-        returnPlayerNum = (returnPlayerNum + 1);
+        int returnPlayerNum = NameSelectBox.display("Name Select", intArray ,"Please Select a Player To Trade With", "", currentPlayerName);
+        if (returnPlayerNum >= state.getCurrentPlayer()){
+            System.out.println("added 1");
+            returnPlayerNum = (returnPlayerNum + 1);
+        }
         System.out.println("playerNum: " + returnPlayerNum);
 
 

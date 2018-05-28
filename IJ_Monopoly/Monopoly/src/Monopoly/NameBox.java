@@ -33,8 +33,8 @@ public class NameBox
         TextField name4 = new TextField();
 
 
-        Button selectButton = new Button("Select");
-        Button closeButton = new Button("Close");
+        Button selectButton = new Button("Start");
+        Button closeButton = new Button("Quit");
 
         selectButton.setOnAction(action -> {
             if (name1.getText().length() != 0){
