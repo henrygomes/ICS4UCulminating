@@ -115,35 +115,6 @@ public class Token
 
     public void move(Player players[], int playerNumber)
     {
-  //      boardPos = {};
- //       boardPos[0][1] = 750;
-  //      boardPos[1][0] = 644;
-  //      boardPos[1][1] = 750;
-  //      boardPos[2][0] = 580;
-  //      boardPos[2][1] = 750;
-  //      boardPos[3][0] = 515;
-  //      boardPos[3][1] = 750;
-  //      boardPos[4][0] = 448;
-  //      boardPos[4][1] = 750;
-  //      boardPos[5][0] = 380;
-  //      boardPos[5][1] = 750;
-  //      boardPos[6][0] = 319;
-  //      boardPos[6][1] = 750;
-  //      boardPos[7][0] = 212;
-  //      boardPos[7][1] = 750;
-  //      boardPos[8][0] = 186;
-  //      boardPos[7][1] = 750;
-  //      boardPos[8][0] = 186;
-  //      boardPos[8][1] = 750;
-  //      boardPos[9][0] = 122;
-   //     boardPos[9][1] = 750;
-   //     boardPos[10][0] = 19;
-   //     boardPos[10][1] = 781;
-   //     boardPos[11][0] = 12;
-   //     boardPos[11][1] = 660;
-   //     boardPos[11][0] = 12;
-   //     boardPos[11][1] = 596;
-
         offset = 10;
         int position = players[playerNumber].getLocation();
         int counter = 0;
@@ -151,6 +122,16 @@ public class Token
             if (players[i].getLocation() == position && i != playerNumber)
                 counter++;
         }
+
+        if (players[playerNumber].getInJail()){
+            boardPos[10][0] = 72;
+            boardPos[10][1] = 728;
+        }
+        else{
+            boardPos[10][0] = 51;
+            boardPos[10][1] = 783;
+        }
+
         if (counter == 0){
             circle.setCenterX(boardPos[position][0]);
             circle.setCenterY(boardPos[position][1]);

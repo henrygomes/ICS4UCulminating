@@ -81,11 +81,6 @@ public class TradeBox
             }
         });
 
-        /*
-        tradeButtonPlayer2.setOnAction(e -> {
-            trade2.add(player2.getValue());
-        });
-        */
 
         tradeButton.setOnAction(e -> {
             tradeReturn[0] = trade1;
@@ -115,7 +110,7 @@ public class TradeBox
         GridPane.setConstraints(tradeButton, 1, 2);
         GridPane.setConstraints(closeButton, 2, 2);
 
-        grid.getChildren().addAll(player1, tradeButtonPlayer1, player2, tradeButtonPlayer2, tradeButton, closeButton);
+        grid.getChildren().addAll(player1, tradeButtonPlayer1, player2, tradeButtonPlayer2, tradeButton);
 
 
         Scene scene = new Scene(grid, 700, 100);

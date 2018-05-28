@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,9 +27,6 @@ public class Controller implements Initializable
     public static Player[] players = new Player[0];
     public static Token[] tokens = new Token[0];
 
-
-
-    //ObservableList<storeContacts> contacts = FXCollections.observableArrayList();
 
     @FXML
     private Label moneyAmount;
@@ -116,22 +114,25 @@ public class Controller implements Initializable
     {
         int dice1 = roll();
         int dice2 = roll();
+        state.setD1(dice1);
+        state.setD2(dice2);
         int totalRoll = dice1+dice2;
         int currentPlayer = state.getNextPlayer();
         state.setCurrentPlayer(state.getNextPlayer());
         players[currentPlayer].move(totalRoll);
         tokens[currentPlayer].move(players, currentPlayer);
         System.out.println("You Rolled: " + dice1 + " " + dice2 + " Current Player: " + currentPlayer + " Position: " + players[currentPlayer].getLocation() + " NumPlayers " + state.getNumPlayers());
-        turn(players[state.getCurrentPlayer()], -1);
         if (dice1 == dice2)
             state.setNextPlayer(currentPlayer);
         else{
             state.setNextPlayer((currentPlayer+1)%state.getNumPlayers());
         }
-
-        showProperties(currentPlayer);
-        getPlayerStatus(currentPlayer, totalRoll);
-        getPropertyStatus(players[currentPlayer].getLocation());
+        if (players[currentPlayer].getLocation() != 40){
+            turn(players[state.getCurrentPlayer()], -1);
+            showProperties(currentPlayer);
+            getPlayerStatus(currentPlayer, totalRoll);
+            getPropertyStatus(players[currentPlayer].getLocation());
+        }
 
     }
 
@@ -229,7 +230,14 @@ public class Controller implements Initializable
             propPrice.setText(priceString);
             propOwner.setText(stringPlayer);
         }
-
+        if (board[p] instanceof OtherSpace)
+        {
+            String name = ((OtherSpace)board[p]).getName();
+            propName.setText(name);
+            propRent.setText("N/A");
+            propPrice.setText("N/A");
+            propOwner.setText("N/A");
+        }
     }
 
     public void turn(Player player, int utilityMultiplier)
@@ -242,28 +250,29 @@ public class Controller implements Initializable
         {
             if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u')
             {
-                pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()) * -1);
+                System.out.println("q 1");
+                pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()));
             }
             else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u')
             {
+                System.out.println("q 2");
                 pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(playerLoc));
             }
-            //else
-            //{
-                //buyProperty(player, ((Property)board[playerLoc]));
-            //}
+
         }
 
         else
         {
             if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
             {
+                System.out.println("q 3");
                 pay(player, ((OtherSpace)board[playerLoc]).getTax());
             }
             else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
             {
+                System.out.println("q 4");
                 System.out.println("Got to card - need to fix card class as it is calling Monopoly");
-                // Card.CardPickup (player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
+                //Card.CardPickup (player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
             }
         }
         if (hasPlayerLost(player))
@@ -311,14 +320,26 @@ public class Controller implements Initializable
 
     public void buy()
     {
+        int totalRoll = (state.getD1() + state.getD2());
+        if (players[state.getCurrentPlayer()].getInJail() == true){
+            AlertBox.display("Error!", "You Cant Buy While In Jail!");
+            return;
+        }
         int playerLoc = players[state.getCurrentPlayer()].getLocation();
         if (board[playerLoc] instanceof Property)
         {
+            if (((Property)board[playerLoc]).getOwner() != null){
+                AlertBox.display("Error!", "This Property Is Already Owned");
+                return;
+            }
             buyProperty(players[state.getCurrentPlayer()], ((Property)board[playerLoc]));
+            showProperties(state.getCurrentPlayer());
+            getPlayerStatus(state.getCurrentPlayer(), totalRoll);
+            getPropertyStatus(players[state.getCurrentPlayer()].getLocation());
         }
         if (board[playerLoc] instanceof OtherSpace)
         {
-
+            AlertBox.display("Error!", "You Cant Buy This Property!");
         }
     }
 
@@ -333,7 +354,6 @@ public class Controller implements Initializable
         else
         {
             return;
-            //System.out.println ("Did not buy " + property.getName());
         }
     }
 
@@ -413,57 +433,72 @@ public class Controller implements Initializable
 
     public void tradeInfo()
     {
+        if (players[state.getCurrentPlayer()].getInJail() == true){
+            AlertBox.display("Error!", "You Cant Trade In Jail!");
+            return;
+        }
         ArrayList<Property> player1 = new ArrayList<Property>();
         ArrayList<Property> player2 = new ArrayList<Property>();
+        ArrayList<Player> intArray = new ArrayList<Player>();
         int match = 0;
 
-        Player[] intArray = new Player[state.numPlayers];
-
-        if (players[state.getCurrentPlayer()].getProperties() == null){//if the player has property
+        if (players[state.getCurrentPlayer()].getProperties().size() == 0){//if the player has property
             AlertBox.display("Error!", "You Have No Property To Trade!");//alerts the user they have no property
             return;
         }
 
         for (int i = 0; i< state.numPlayers; i++)
         {
-            if(players[i].getProperties() != null){ //not adding players with no cards
-                intArray[i] = players[i];
-                System.out.println(players[i].getName());
+            System.out.println(state.currentPlayer);
+
+            if(players[i].getProperties().size() != 0 && i != state.currentPlayer){ //not adding players with no cards
+                intArray.add(players[i]);
                 match = 1;
             }
+        }
 
-            if (match == 0){ //if no players have property
-                AlertBox.display("Error!", "There Is No One To Trade With!");//calling an alert box warning the user
-                return;
-            }
+
+        if (match == 0){ //if no players have property
+            AlertBox.display("Error!", "There Is No One To Trade With!");//calling an alert box warning the user
+            return;
         }
 
         String currentPlayerName = players[state.getCurrentPlayer()].getName();
         System.out.println("current Player " + currentPlayerName);
         int returnPlayerNum = NameSelectBox.display("Name Select", intArray,"Please Select a Player To Trade With", "", currentPlayerName);
+        returnPlayerNum = (returnPlayerNum + 1);
+        System.out.println("playerNum: " + returnPlayerNum);
 
-        getTrade(players[state.getCurrentPlayer()].getProperties(), players[returnPlayerNum].getProperties(), players[state.getCurrentPlayer()].getName(), players[returnPlayerNum].getName(), players[state.getCurrentPlayer()], players[state.getCurrentPlayer()]);
+
+        getTrade(players[state.getCurrentPlayer()].getProperties(), players[returnPlayerNum].getProperties(), players[state.getCurrentPlayer()].getName(), players[returnPlayerNum].getName(), players[state.getCurrentPlayer()], players[returnPlayerNum]);
     }
 
     public void getTrade( ArrayList<Property> player1,  ArrayList<Property> player2, String namePlayer1, String namePlayer2, Player playerObj1, Player playerObj2)
     {
-        System.out.println(player1);
-        System.out.println(player2);
-        System.out.println(namePlayer1);
-        System.out.println(namePlayer2);
-        System.out.println(playerObj1);
-        System.out.println(playerObj2);
 
         ArrayList<Property> return1 = new ArrayList<Property>();
         ArrayList<Property> return2 = new ArrayList<Property>();
 
         ArrayList<Property>[] tradeReturnValue =  TradeBox.display("Trade Menu", player1, player2, namePlayer1, namePlayer2, "");
-
+        System.out.println(tradeReturnValue);
+        if (tradeReturnValue == null){
+            return;
+        }
         for (int x = 0; x < tradeReturnValue[0].size(); x++)
-            player1.add(tradeReturnValue[0].get(x));
+            return1.add(tradeReturnValue[0].get(x));
 
-        for (int x = 0; x < tradeReturnValue[0].size(); x++)
-            player1.add(tradeReturnValue[0].get(x));
+        for (int x = 0; x < tradeReturnValue[1].size(); x++)
+            return2.add(tradeReturnValue[1].get(x));
+
+        for (int i = 0; i < return1.size(); i++)
+        {
+            System.out.println("Player 1 Trade Items: " + return1.get(i).getName());
+        }
+
+        for (int i = 0; i < return2.size(); i++)
+        {
+            System.out.println("Player 2 Trade Items: " + return2.get(i).getName());
+        }
 
         trade(playerObj1, playerObj2, return1, return2);
     }
@@ -471,20 +506,22 @@ public class Controller implements Initializable
     /**
      * This method creates the option for players to trade properties and money between eachother. 
      */
-    public static void trade(Player fromPlayer, Player toPlayer, ArrayList<Property> fromPlayerProperties, ArrayList<Property> toPlayerProperties)
+    public void trade(Player player1, Player player2, ArrayList<Property> player1Properties, ArrayList<Property> player2Properties)
     {
-        for(int i = 0; i < fromPlayerProperties.size(); i++)
+        for(int i = 0; i < player1Properties.size(); i++)
         {
-            fromPlayerProperties.get(i).newOwner(toPlayer);
-            toPlayerProperties.add(fromPlayerProperties.get(i));
-            fromPlayerProperties.remove(i);
+            player1Properties.get(i).newOwner(player2);
+            player2.addNewProperty(player1Properties.get(i));
+            player1.removeProperty(player1Properties.get(i));
         }
-        for(int i = 0; i < toPlayerProperties.size(); i++)
+        for(int i = 0; i < player2Properties.size(); i++)
         {
-            toPlayerProperties.get(i).newOwner(toPlayer);
-            fromPlayerProperties.add(toPlayerProperties.get(i));
-            toPlayerProperties.remove(i);
+            player2Properties.get(i).newOwner(player1);
+            player1.addNewProperty(player2Properties.get(i));
+            player2.removeProperty(player2Properties.get(i));
         }
+        getPropertyStatus(players[state.getCurrentPlayer()].getLocation());
+        showProperties(state.getCurrentPlayer());
     }
 
     public void closeProgram()
@@ -496,8 +533,14 @@ public class Controller implements Initializable
 
     }
 
+    public void house()
+    {
+        addHouse(players[state.getCurrentPlayer()], ((Property)board[1]));
+    }
+
     public static void addHouse(Player currentPlayer, Property property)
     {
+        System.out.println("in house");
         char propertyColour = property.getColour();
         ArrayList<Property> currentPlayerProps = currentPlayer.getProperties();
         Property checkProperty;
@@ -534,6 +577,92 @@ public class Controller implements Initializable
                      */
                 }
             }
+        }
+    }
+
+    public static void CardPickup (Player player, int cardType, Player[] players)
+    {
+
+        Random rand = new Random();
+        if (cardType ==1)//chance
+        {
+            int card = rand.nextInt(16);
+            switch (card){
+                case 0://advance to go, if pass go collect 200
+                    player.moveTo(0, true);
+                    break;
+                case 1://advance to Illinois Ave (24), if pass go collect 200
+                    player.moveTo(24, true);
+                    MonopolyGame.land (24, player, -1);
+                    break;
+                case 2://advance to St. Charles Place (11), if pass go collect 200
+                    player.moveTo(11, true);
+                    MonopolyGame.land(11, player, -1);
+                    break;
+                case 3://advance to nearest utility, if owned pay 10x roll, if unowned buy
+                    if (player.getLocation() > 28 || player.getLocation() < 12){
+                        player.moveTo(12, true);
+                        MonopolyGame.land (12, player, 10);
+                    }
+                    else{
+                        player.moveTo(28, true);
+                        MonopolyGame.land (28, player, 10);
+                    }
+                    break;
+                case 4://advance to nearest railroad, pay 2x rental, if unowned buy
+                    break;
+                case 5://get 50
+                    player.addMoney (50);
+                    break;
+                case 6://get out of jail free card
+                    player.newGOOJFCard();
+                    break;
+                case 7://go back 3 spaces
+                    int playerLoc = player.getLocation();
+                    int playerTo = player.getLocation() -3;
+                    if (playerTo <0)
+                        playerTo = 40 + playerTo;
+                    player.moveTo(playerTo, false);
+                    MonopolyGame.land (playerTo, player, -1);
+                    break;
+                case 8://go to jail, dont get 200$
+                    break;
+                case 9://pay 25 for each house, 100 for each hotel
+                    for (int i = 0; i < player.getProperties().size();i++)
+                    {
+
+                    }
+                    break;
+                case 10://pay 15$
+                    MonopolyGame.pay (player, 15);
+                    break;
+                case 11://got to reading railroad, if pass go pay 200$
+                    player.moveTo(5, true);
+                    MonopolyGame.land(5, player, -1);
+                    break;
+                case 12:// go to boardwalk
+                    player.moveTo(39, true);
+                    MonopolyGame.land(39, player, -1);
+                    break;
+                case 13://pay each player 50
+                    for (int i = 0; i <players.length; i++)
+                    {
+                        if (players[i] != player)
+                            MonopolyGame.pay (player, players[i],50);
+
+                    }
+                    break;
+                case 14://collect 150
+                    player.addMoney(150);
+                    break;
+                case 15://collect 100
+                    player.addMoney(100);
+                    break;
+            }
+        }
+        else if (cardType == 2)
+        {
+
         }
     }
 }

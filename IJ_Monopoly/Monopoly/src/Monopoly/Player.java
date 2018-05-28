@@ -18,6 +18,25 @@ public class Player
     private int playerNum;
     private int doubles = 0;
     private int GOOJFCard =0;
+    private int turnsInJail = 0;
+    private boolean inJail = false;
+
+    public boolean getInJail() {
+        return inJail;
+    }
+
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
+    }
+
+    public int getTurnsInJail() {
+        return turnsInJail;
+    }
+
+    public void setTurnsInJail(int turnsInJail) {
+        this.turnsInJail = turnsInJail;
+    }
+
     public Player(String name, double money, int playerNum)
     {
         this.name = name;
@@ -28,6 +47,11 @@ public class Player
     public void addNewProperty (Property newProperty)
     {   
         properties.add(newProperty);
+    }
+
+    public void removeProperty (Property removeProperty)
+    {
+        properties.remove(removeProperty);
     }
     
     public Player(String name, int playerNum)
@@ -84,13 +108,31 @@ public class Player
 
     public int move(int spacesMoved)
     {
-        this.location += spacesMoved;
+        if(this.inJail == true){
+            if (this.turnsInJail < 3){
+                this.turnsInJail++;
+            }
+            else{
+                this.location += spacesMoved;
+                this.setInJail(false);
+            }
+        }
+        else{
+            this.location += spacesMoved;
+        }
 
         if(location >= 40)
         {
             location -= 40;
             money += 200;
         }
+
+        if(location == 30){
+            location = 10;
+            this.inJail = true;
+            AlertBox.display("You Have Been A Bad/Girl/Other", "GO TOO JAIL!");
+        }
+
         return location;
     }
     

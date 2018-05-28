@@ -24,7 +24,12 @@ public class Property extends Space
         this.price = cost;
         this.rent = rent;
     }
-    
+
+    public Player getOwner()
+    {
+        return this.player;
+    }
+
     public int getNumberOfHouses()
     {
         return numberOfHouses;

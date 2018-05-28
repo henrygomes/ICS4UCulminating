@@ -66,8 +66,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Monopoly/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            <state relative-caret-position="289">
+              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,18 +75,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Monopoly/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+            <state relative-caret-position="-119">
+              <caret line="413" column="21" selection-start-line="413" selection-start-column="16" selection-end-line="413" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3777#3787#0" expanded="true" />
-                <element signature="e#12570#12580#0" expanded="true" />
-                <element signature="e#12635#12645#0" expanded="true" />
-                <element signature="e#14504#14514#0" expanded="true" />
-                <element signature="e#14569#14579#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,7 +90,7 @@
       <file leaf-file-name="NameBox.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Monopoly/NameBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
+            <state relative-caret-position="969">
               <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -107,27 +102,17 @@
       <file leaf-file-name="Token.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Monopoly/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="51">
               <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TradeBox.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TradeBox.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Monopoly/TradeBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="986">
-              <caret line="111" column="37" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Monopoly/sample.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="227" column="148" lean-forward="true" selection-start-line="227" selection-start-column="148" selection-end-line="227" selection-end-column="148" />
+            <state relative-caret-position="1190">
+              <caret line="76" column="30" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -200,8 +185,8 @@
       <find>Monopoly</find>
       <find>card</find>
       <find>ale</find>
-      <find>trade</find>
       <find>quit</find>
+      <find>trade</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Ian\IdeaProjects\ActualMonopoly\src</dir>
@@ -238,6 +223,7 @@
         <option value="$PROJECT_DIR$/src/Monopoly/sample.fxml" />
         <option value="$PROJECT_DIR$/src/Monopoly/NameBox.java" />
         <option value="$PROJECT_DIR$/src/Monopoly/Controller.java" />
+        <option value="$PROJECT_DIR$/src/Monopoly/TradeBox.java" />
       </list>
     </option>
   </component>
@@ -256,41 +242,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="ActualMonopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ActualMonopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ActualMonopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ActualMonopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ActualMonopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ActualMonopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ActualMonopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -299,6 +266,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -311,7 +279,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/GitHub/Monopoly/sample" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
   </component>
   <component name="RunDashboard">
@@ -430,6 +398,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -437,14 +406,14 @@
       <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info id="Image Layers" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5005208" side_tool="true" weight="0.32908705" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32908705" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.32908705" />
       <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="13" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20729166" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20729166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info id="UI Designer" order="3" />
@@ -458,12 +427,12 @@
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Changes" order="7" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Profiler" order="9" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Problems" order="10" />
       <window_info anchor="bottom" id="Application Servers" order="12" />
+      <window_info anchor="right" id="Database" order="7" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -483,6 +452,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Monopoly/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Monopoly/TradeBox.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1445">
@@ -527,11 +506,6 @@
           <caret line="310" column="79" lean-forward="true" selection-start-line="310" selection-start-column="79" selection-end-line="310" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -594,11 +568,6 @@
           <caret line="145" column="14" selection-start-line="145" selection-start-column="14" selection-end-line="145" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -654,11 +623,6 @@
           <caret line="171" column="5" lean-forward="true" selection-start-line="171" selection-start-column="5" selection-end-line="171" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -679,11 +643,6 @@
           <caret line="384" column="1" selection-start-line="384" selection-start-column="1" selection-end-line="384" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -708,11 +667,6 @@
           <caret line="384" column="1" selection-start-line="384" selection-start-column="1" selection-end-line="384" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -737,11 +691,6 @@
           <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -863,30 +812,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Monopoly/Token.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="51">
           <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Monopoly/TradeBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="111" column="37" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Monopoly/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="227" column="148" lean-forward="true" selection-start-line="227" selection-start-column="148" selection-end-line="227" selection-end-column="148" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Monopoly/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        <state relative-caret-position="289">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -895,7 +829,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Monopoly/NameBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
+        <state relative-caret-position="969">
           <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -905,16 +839,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Monopoly/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+        <state relative-caret-position="-119">
+          <caret line="413" column="21" selection-start-line="413" selection-start-column="16" selection-end-line="413" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3787#0" expanded="true" />
-            <element signature="e#12570#12580#0" expanded="true" />
-            <element signature="e#12635#12645#0" expanded="true" />
-            <element signature="e#14504#14514#0" expanded="true" />
-            <element signature="e#14569#14579#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Monopoly/TradeBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="76" column="30" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
         </state>
       </provider>
     </entry>

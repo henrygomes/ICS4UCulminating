@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.* ?>
+
+<SplitPane dividerPositions="0.6702838063439065" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Monopoly.Controller">
+   <items>
+      <AnchorPane fx:id="BoardPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <Pane prefHeight="799.0" prefWidth="802.0">
+               <children>
+                  <ImageView fitHeight="799.0" fitWidth="883.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@monoplyboard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children></AnchorPane>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox prefHeight="798.0" prefWidth="388.0">
+               <children>
+                  <ToolBar prefHeight="94.0" prefWidth="388.0">
+                     <items>
+                        <Button mnemonicParsing="false" onAction="#tradeInfo" text="Trade">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Sell">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#buy" text="Buy">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                     </items>
+                     <padding>
+                        <Insets bottom="8.0" left="15.0" right="8.0" top="8.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ToolBar>
+                  <VBox prefHeight="286.0" prefWidth="388.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="32.0" prefWidth="132.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="Game" underline="true">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="15.0" prefWidth="182.0" spacing="40.0">
+                           <children>
+                              <Label text="Money:" textAlignment="JUSTIFY">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="moneyAmount" text="MoneyValue" textAlignment="JUSTIFY">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="15.0" prefWidth="182.0" spacing="40.0">
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="81.0" text="Turn:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="playerTurn" text="TurnValue">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="15.0" prefWidth="182.0" spacing="58.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="65.0" text="Roll:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="rollValue" text="RollValue">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="65.0">
+                           <children>
+                              <Label text="Next:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nextTurn" text="NextPlayer">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="201.0" prefWidth="192.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="7.0" prefWidth="192.0">
+                           <children>
+                              <Label text="Property" underline="true">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="5.0" prefWidth="172.0" spacing="50.0">
+                           <children>
+                              <Label text="Name:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font></Label>
+                              <Label fx:id="propName" text="NameValue">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font></Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="8.0" prefWidth="172.0" spacing="58.0">
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="60.0" text="Rent:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font></Label>
+                              <Label fx:id="propRent" alignment="CENTER" text="RentValue">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font></Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets right="10.0" top="10.0" />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="3.0" prefWidth="172.0" spacing="47.0">
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="78.0" text="Owner:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="propOwner" prefHeight="35.0" prefWidth="137.0" text="OwnerValue">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Region prefHeight="35.0" prefWidth="65.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="54.0" prefWidth="192.0" spacing="63.0">
+                           <children>
+                              <Label text="Price">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="propPrice" text="PriceValue">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" />
+                  <ToolBar prefHeight="90.0" prefWidth="388.0">
+                     <items>
+                        <Button mnemonicParsing="false" onAction="#closeProgram" prefHeight="25.0" prefWidth="83.0" text="Quit" fx:id="closeButton">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Button>
+                        <Region prefHeight="59.0" prefWidth="133.0" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#rollDice" prefHeight="51.0" prefWidth="142.0" text="Roll Dice">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                     </items>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </ToolBar>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+   </items>
+</SplitPane>

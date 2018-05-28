@@ -1,5 +1,6 @@
 REM Set to path of JDK install. Can download from Oracle
 SET JDK=.\Java_sdk
+REM SET JDK=.\jre
 
 %JDK%\bin\javac -Xlint:unchecked -d .\build .\src\Monopoly\*.java
 COPY .\src\Monopoly\sample.fxml .\build\Monopoly
