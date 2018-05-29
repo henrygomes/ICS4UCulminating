@@ -1,6 +1,4 @@
- 
-
- 
+package Monopoly;
 
 //import javafx.beans.property.Property;
 import javafx.scene.control.Button;

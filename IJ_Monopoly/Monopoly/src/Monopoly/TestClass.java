@@ -1,6 +1,4 @@
- 
-
- 
+package Monopoly;
 
 /**
  * Write a description of class TestClass here.
