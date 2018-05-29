@@ -46,7 +46,7 @@ Property St. Charles Place
 
 Property Electric Company
 
-12 150 0000000000 u
+12 150 4 u
 
 Property States Avenue
  
@@ -110,7 +110,7 @@ Property Ventnor
 
 Property Water Works
 
-28 150 000000000 u
+28 150 4 u
 
 Property Marvin Gardens
 

@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=TradeBox
+comment1.params=title\ info1\ info2\ message1\ message2\ tip
+comment1.target=java.util.ArrayList[]\ display(java.lang.String,\ java.util.ArrayList,\ java.util.ArrayList,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+numComments=2

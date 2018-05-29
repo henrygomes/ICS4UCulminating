@@ -104,7 +104,7 @@ public class Property extends Space
     
     public double getRent(int roll)
     {
-        return roll * 4;
+        return roll * rent;
     }
 
     public void setRent(int r)
