@@ -1,4 +1,6 @@
-package Monopoly;
+ 
+
+ 
 /**
  * Write a description of class GUI here.
  * 
