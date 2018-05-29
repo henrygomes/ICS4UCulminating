@@ -151,7 +151,7 @@ public class Controller implements Initializable
         state.setD1(dice1);
         state.setD2(dice2);
         int totalRoll = dice1+dice2;
-        totalRoll = 2;//for tseting
+        totalRoll = 1;//for tseting
         int currentPlayer = state.getNextPlayer();
         state.setCurrentPlayer(state.getNextPlayer());//switches players
         players[currentPlayer].move(totalRoll);//moving the player location object
