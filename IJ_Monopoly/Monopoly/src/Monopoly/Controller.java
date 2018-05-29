@@ -22,9 +22,9 @@ import javafx.stage.Stage;
 
 public class Controller implements Initializable
 {
-    public static Space[] board = boardCreation();
-    State state = new State();
-    public static Player[] players = new Player[0];
+    public static Space[] board = boardCreation();//the board is just a space array with properties and is created int eh boardCreation() method
+    State state = new State();//holds some game variales
+    public static Player[] players = new Player[0];//the current players in the game
     public static Token[] tokens = new Token[0];
 
 
@@ -63,10 +63,10 @@ public class Controller implements Initializable
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void initialize(URL location, ResourceBundle resources)//creates the cariables for the game
     {
 
-        ArrayList<String> nameList = NameBox.display();
+        ArrayList<String> nameList = NameBox.display();//displayes the name box
         while(nameList.size() < 2){
             AlertBox.display("Error!", "Please Add More Than 2 Players!");
             nameList = NameBox.display();
@@ -91,11 +91,11 @@ public class Controller implements Initializable
     {
         System.out.println(numPlayers);
         players = new Player[numPlayers];
-        for (int i = 0; i< numPlayers; i++)
+        for (int i = 0; i< numPlayers; i++)//creates players array
         {
             players[i] = new Player (name[i], i);
         }
-        state.setNumPlayers(players.length);
+        state.setNumPlayers(players.length);//sets state
         tokens = new Token[numPlayers];
         for (int i = 0; i < numPlayers; i++)
         {
@@ -110,25 +110,25 @@ public class Controller implements Initializable
     }
 
     @FXML
-    public void rollDice()
+    public void rollDice()//starts the game
     {
         int dice1 = roll();
-        int dice2 = roll();
+        int dice2 = roll();//to roll to allow for doubles and proper odds
         state.setD1(dice1);
         state.setD2(dice2);
         int totalRoll = dice1+dice2;
-        totalRoll = 2;
+        totalRoll = 2;//for tseting
         int currentPlayer = state.getNextPlayer();
-        state.setCurrentPlayer(state.getNextPlayer());
-        players[currentPlayer].move(totalRoll);
-        tokens[currentPlayer].move(players, currentPlayer);
+        state.setCurrentPlayer(state.getNextPlayer());//switches players
+        players[currentPlayer].move(totalRoll);//moving the player location object
+        tokens[currentPlayer].move(players, currentPlayer);//moving rthe player on the board
         System.out.println("You Rolled: " + dice1 + " " + dice2 + " Current Player: " + currentPlayer + " Position: " + players[currentPlayer].getLocation() + " NumPlayers " + state.getNumPlayers());
-        if (dice1 == dice2)
+        if (dice1 == dice2)//if doubles player goes again
             state.setNextPlayer(currentPlayer);
-        else{
+        else{//if no doubles next player is selected
             state.setNextPlayer((currentPlayer+1)%state.getNumPlayers());
         }
-        if (players[currentPlayer].getLocation() != 40){
+        if (players[currentPlayer].getLocation() != 40){//executes the turn
             turn(players[state.getCurrentPlayer()], -1);
             showProperties(currentPlayer);
             getPlayerStatus(currentPlayer, totalRoll);
@@ -137,7 +137,7 @@ public class Controller implements Initializable
 
     }
 
-    private int roll()
+    private int roll()//returns a valid random dice roll
     {
         int rand = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         return(rand);
@@ -250,32 +250,30 @@ public class Controller implements Initializable
         }
     }
 
-    public void turn(Player player, int utilityMultiplier)
+    public void turn(Player player, int utilityMultiplier)//executes the game
     {
         int playerLoc = players[state.getCurrentPlayer()].getLocation();
         System.out.println(playerLoc);
         if (utilityMultiplier <0)
-            utilityMultiplier = 4;
-        if (board[playerLoc] instanceof Property)
+            utilityMultiplier = 1;
+        if (board[playerLoc] instanceof Property)//if lands on property
         {
-            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u' && ((Property)board[playerLoc]).getIsMortgage() == false)
+            if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() != 'u' && ((Property)board[playerLoc]).getIsMortgage() == false)//if the player has to pay rent
             {
                 pay(player, ((Property)board[playerLoc]).getPlayer(), (((Property)board[playerLoc]).getRent()));
             }
-            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u' && ((Property)board[playerLoc]).getIsMortgage() == false)
+            else if (((Property)board[playerLoc]).getPlayer()!=null && ((Property)board[playerLoc]).getColour() == 'u' && ((Property)board[playerLoc]).getIsMortgage() == false)//if the player has to pay rent on a utility
             {
-                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(playerLoc));
+                pay(player, ((Property)board[playerLoc]).getPlayer(), ((Property)board[playerLoc]).getRent(roll()) * utilityMultiplier);
             }
-
         }
-
-        else
+        else//if land on otherspace
         {
-            if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)
+            if (Math.abs(((OtherSpace)board[playerLoc]).getTax()) > 0)//if there is a tax, pay it
             {
                 pay(player, ((OtherSpace)board[playerLoc]).getTax());
             }
-            else if (((OtherSpace)board[playerLoc]).getCardValue()>0)
+            else if (((OtherSpace)board[playerLoc]).getCardValue()>0)//pickup card if is cardpickup
             {
                 System.out.println("Got to card - need to fix card class as it is calling Monopoly");
                 //CardPickup(player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
@@ -285,7 +283,7 @@ public class Controller implements Initializable
             player.hasLost();
     }
 
-    public static boolean pay (Player fromPlayer, double amount)
+    public static boolean pay (Player fromPlayer, double amount)//have the player pay the amount
     {
         if (fromPlayer.transaction(amount))
         {
@@ -301,7 +299,7 @@ public class Controller implements Initializable
         return false;
     }
 
-    public static boolean hasPlayerLost (Player player)
+    public static boolean hasPlayerLost (Player player)//checks if the player has lost all money and property
     {
         if (player.getMoney() <=0 && player.getProperties().isEmpty())
             return true;
@@ -363,7 +361,7 @@ public class Controller implements Initializable
         }
     }
 
-    public static boolean pay (Player fromPlayer, Player toPlayer, double amount)
+    public static boolean pay (Player fromPlayer, Player toPlayer, double amount)//transaction between players
     {
         if (fromPlayer.transaction(amount))
         {
@@ -381,7 +379,7 @@ public class Controller implements Initializable
     }
 
 
-    public static Space[] boardCreation()
+    public static Space[] boardCreation()//initialize board
     {
         try {
             File file = new File ("src\\Monopoly\\BoardConfig.txt");

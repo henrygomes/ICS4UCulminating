@@ -75,7 +75,7 @@ public class Property extends Space
         
     public double getRent(int roll)//if the property is a utility
     {
-        return roll * 4;
+        return roll * rent;
     }
 
     public double getMortgage()//get mortgage value
