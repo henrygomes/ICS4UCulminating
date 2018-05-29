@@ -12,22 +12,21 @@
 import java.util.ArrayList;
 public class Player
 {
-    private String name;
-    private double money;
-    private int location = 0;
-    private ArrayList<Property> properties = new ArrayList <Property>();
-    private boolean hasLost = false;
-    private int playerNum;
-    private int doubles = 0;
-    private int GOOJFCard =0;
-    private int turnsInJail = 0;
-    private boolean inJail = false;
-
+    private String name;//name of the player
+    private double money;// the amount of ca$h the player has
+    private int location = 0;//location on the board
+    private ArrayList<Property> properties = new ArrayList <Property>();//properties the player has
+    private boolean hasLost = false;// determines if the player has lost (No money & no property)
+    private int playerNum;//Player num (Same as location in the players array in the main class
+    private int doubles = 0;// num of doubles in a row (if reaches 3/4 sends to jail)
+    private int GOOJFCard =0;// num of GetOutOfJailFree (GOOJF) cards
+    private int turnsInJail = 0;//num of turns in jail (if reaches a certain num, released)
+    private boolean inJail = false;//if player is in jail
     public boolean getInJail() {
         return inJail;
     }
 
-    public void setInJail(boolean inJail) {
+    public void setInJail(boolean inJail) {// sets if the player is in jail or not
         this.inJail = inJail;
     }
 
@@ -35,7 +34,7 @@ public class Player
         return turnsInJail;
     }
 
-    public void setTurnsInJail(int turnsInJail) {
+    public void setTurnsInJail(int turnsInJail) {//increase by one or 
         this.turnsInJail = turnsInJail;
     }
 

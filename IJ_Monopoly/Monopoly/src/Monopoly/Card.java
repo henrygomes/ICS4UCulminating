@@ -1,6 +1,5 @@
- 
+package Monopoly;
 
- 
 /**
  * Write a description of class Cards here.
  *
@@ -10,7 +9,7 @@
 import java.util.Random;
 public class Card
 {
-    public static void CardPickup (Player player, int cardType, Player[] players)
+    public static void CardPickup (Player player, int cardType, Player[] players)//executes
     {
 
         Random rand = new Random();

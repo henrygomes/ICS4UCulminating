@@ -7,44 +7,47 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
-import java.util.ArrayList;
 
-
-public class SelectBoxArrayList
+public class HouseBox
 {
 
-    static Property answer;
+    static int answer = 0;
 
-    public static Property display(String title, ArrayList<Property> info, String message, String tip)
-    {
+    public static int display(int totalNumProperties, int numHouses, int currentNumHouses) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("How Many Houses:");
         window.setMinWidth(250);
         Label label = new Label();
-        label.setText(message);
+        label.setText("How Many Total Houses Would You Like To Add To Your Selected Properties?");
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.setTooltip(new Tooltip(tip));
-        comboBox.setPromptText(message);
+        comboBox.setPromptText("Houses");
 
-
-        for(int x = 0; x < info.size(); x++){
-            comboBox.getItems().add(info.get(x).getName());
+        if (numHouses != 4*totalNumProperties) {
+            numHouses = currentNumHouses;
         }
+        else {
+            AlertBox.display("Error!", "Maximum Number Of Houses Added!");
+            window.close();
+        }
+
+        System.out.println("numHouses: " + numHouses);
+            while (numHouses < 4*totalNumProperties) {
+                if(numHouses%totalNumProperties == 0){
+                    String numHousesString = Integer.toString(4*totalNumProperties-numHouses);
+                    comboBox.getItems().add(numHousesString);
+                }
+                numHouses++;
+            }
 
         Button selectButton = new Button("Select");
         Button backButton = new Button("Back");
 
-
         selectButton.setOnAction(e -> {
-            for(int i = 0; i < info.size(); i++){
-                if (info.get(i).getName() == comboBox.getValue()){
-                    answer = info.get(i);
-                }
-            }
+            String myString = comboBox.getValue();
+            answer = Integer.parseInt(myString);
             window.close();
         });
-
 
         backButton.setOnAction(e -> {
             window.close();
@@ -59,7 +62,6 @@ public class SelectBoxArrayList
         grid.setAlignment(Pos.CENTER);
 
         TextField passInput = new TextField();
-        passInput.setPromptText(tip);
 
 
         GridPane.setConstraints(comboBox, 0, 0);
@@ -76,4 +78,3 @@ public class SelectBoxArrayList
 
     }
 }
-

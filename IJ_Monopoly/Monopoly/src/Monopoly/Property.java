@@ -1,6 +1,4 @@
- 
-
- 
+package Monopoly;
 
 import javafx.scene.paint.*;
 /**
@@ -71,6 +69,17 @@ public class Property extends Space
     {
         return rent;
     }
+
+
+    public int getNumColorProperty()
+    {
+        if (this.colour == 'b' || this.colour == 'd'){
+             return 2;
+        }
+        else{
+            return 3;
+        }
+    }
     
     public void addRent(double amount)
     {
@@ -87,10 +96,20 @@ public class Property extends Space
             rent *= 1.5;
         }
     }
+
+    public void setNumberOfHouses(int n)
+    {
+        this.numberOfHouses = n;
+    }
     
     public double getRent(int roll)
     {
         return roll * 4;
+    }
+
+    public void setRent(int r)
+    {
+        this.rent = r;
     }
 
     public double getMortgage()

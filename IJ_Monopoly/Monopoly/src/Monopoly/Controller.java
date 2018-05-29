@@ -1,5 +1,4 @@
-  
- 
+package Monopoly;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import javafx.stage.Stage;
+import javafx.scene.shape.*;
 
 
 public class Controller implements Initializable
@@ -29,38 +29,71 @@ public class Controller implements Initializable
     public static Token[] tokens = new Token[0];
 
 
-    @FXML
-    private Label moneyAmount;
+    @FXML private Label moneyAmount;
 
-    @FXML
-    private Label playerTurn;
+    @FXML private Label playerTurn;
 
-    @FXML
-    private Label rollValue;
+    @FXML private Label rollValue;
 
-    @FXML
-    private Label nextTurn;
+    @FXML private Label nextTurn;
 
-    @FXML
-    private AnchorPane BoardPane;
+    @FXML private AnchorPane BoardPane;
 
-    @FXML
-    private ListView list;
+    @FXML private ListView list;
 
-    @FXML
-    private Label propName;
+    @FXML private Label propName;
 
-    @FXML
-    private Label propRent;
+    @FXML private Label propRent;
 
-    @FXML
-    private Label propOwner;
+    @FXML private Label propOwner;
 
-    @FXML
-    private Label propPrice;
+    @FXML private Label propPrice;
 
-    @FXML
-    private javafx.scene.control.Button closeButton;
+    @FXML private HBox a;
+
+    @FXML private HBox b;
+
+    @FXML private HBox c;
+
+    @FXML private HBox d;
+
+    @FXML private HBox e;
+
+    @FXML private VBox f;
+
+    @FXML private VBox g;
+
+    @FXML private VBox h;
+
+    @FXML private VBox i;
+
+    @FXML private VBox j;
+
+    @FXML private VBox k;
+
+    @FXML private HBox l;
+
+    @FXML private HBox m;
+
+    @FXML private HBox n;
+
+    @FXML private HBox o;
+
+    @FXML private HBox p;
+
+    @FXML private HBox q;
+
+    @FXML private VBox r;
+
+    @FXML private VBox s;
+
+    @FXML private VBox t;
+
+    @FXML private VBox u;
+
+    @FXML private VBox v;
+
+    @FXML private javafx.scene.control.Button closeButton;
 
 
     @Override
@@ -118,7 +151,6 @@ public class Controller implements Initializable
         state.setD1(dice1);
         state.setD2(dice2);
         int totalRoll = dice1+dice2;
-        totalRoll = 2;
         int currentPlayer = state.getNextPlayer();
         state.setCurrentPlayer(state.getNextPlayer());
         players[currentPlayer].move(totalRoll);
@@ -316,7 +348,6 @@ public class Controller implements Initializable
         if (valueOfPlayer >= amount)
         {
             return true;
-            //if you sell some things you can pay the debt
         }
         else
             return false;
@@ -604,14 +635,25 @@ public class Controller implements Initializable
 
     public void house()
     {
-        addHouse(players[state.getCurrentPlayer()], ((Property)board[1]));
+        ArrayList<Property> properties = new ArrayList<Property>();
+        for(int i = 0; i < players[state.getCurrentPlayer()].getProperties().size(); i++) {
+            if (canAddHouse(players[state.getCurrentPlayer()], players[state.getCurrentPlayer()].getProperties().get(i))) {
+                properties.add(players[state.getCurrentPlayer()].getProperties().get(i));
+            }
+
+            if(properties.size() == 0){
+                AlertBox.display("Error!", "No Properties To Build Houses On");
+                return;
+            }
+        }
+        Property selectedProperty = SelectBoxArrayList.display("Add House", properties, "Select House", "Owned Houses");
+
+        addHouse(players[state.getCurrentPlayer()], selectedProperty);
     }
 
-    public static void addHouse(Player currentPlayer, Property property)
+    public boolean canAddHouse(Player currentPlayer, Property property)
     {
-        System.out.println("in house");
         char propertyColour = property.getColour();
-        ArrayList<Property> currentPlayerProps = currentPlayer.getProperties();
         Property checkProperty;
         int numOfColour = 0;
         int ownedNumOfColour = 0;
@@ -619,36 +661,83 @@ public class Controller implements Initializable
         {
             if(board[i] instanceof Property)
             {
-                checkProperty = (Property) board[i];
-                if(checkProperty.getColour() == propertyColour)
+                checkProperty = ((Property)board[i]);
+                if(checkProperty.getColour() == propertyColour && checkProperty.getOwner() == currentPlayer && !checkProperty.getIsMortgage())
                 {
                     numOfColour++;
                 }
             }
         }
+        if(numOfColour == property.getNumColorProperty()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
-        for(int i = 0; i < currentPlayerProps.size(); i++)
+    public void addHouse(Player currentPlayer, Property property)
+    {
+        ArrayList<Property> currentProperties = new ArrayList<Property>();
+        int rent = 0;
+        int amountHouses = HouseBox.display(property.getNumColorProperty(), (property.getNumberOfHouses()*property.getNumColorProperty()), property.getNumberOfHouses());
+        if (amountHouses == 0){
+            return;
+        }
+        char color = property.getColour();
+        for(int i = 0; i < board.length; i++)
         {
-            if(currentPlayerProps.get(i).getColour() == propertyColour)
+            if(board[i] instanceof Property)
             {
-                ownedNumOfColour++;
+                if(color == ((Property)board[i]).getColour()){
+                    currentProperties.add(((Property)board[i]));
+                }
             }
         }
+        if(property.getColour() == 'b' || property.getColour() == 'l'){
+            rent = 50;
+        }
+        if(property.getColour() == 'p' || property.getColour() == 'o'){
+            rent = 100;
+        }
+        if(property.getColour() == 'r' || property.getColour() == 'y'){
+            rent = 150;
+        }
+        if(property.getColour() == 'g' || property.getColour() == 'd'){
+            rent = 100;
+        }
 
-        if(ownedNumOfColour == numOfColour)
+        for(int i = 0; i < currentProperties.size(); i++){
+            currentProperties.get(i).setRent(rent * (amountHouses/property.getNumColorProperty() + property.getNumberOfHouses()));
+            currentProperties.get(i).setNumberOfHouses((amountHouses/property.getNumColorProperty() + property.getNumberOfHouses()));
+        }
+        getPlayerStatus(state.getCurrentPlayer(), (state.getD1() + state.getD2()));
+        getPropertyStatus(players[state.getCurrentPlayer()].getLocation());
+    }
+
+    public void displayHouses()
+    {
+        HBox hMapping[] = {a, a, b,b,b,c,d,e,e,e,e,e,e,e,e,e,e,e,e,l,l,m,n,n,o,p,p,q};
+        VBox vMapping[] = {};
+        Rectangle[] rectangles = new Rectangle[100];
+        for (int i = 0; i < 100; i++)
         {
-            if(property.getLocation() > 1 && property.getLocation() < 10)
+            rectangles[i] = new Rectangle(5, 5, Color.GREEN);
+        }
+        for(int i = 0; i < board.length; i++)
+        {
+            if(board[i] instanceof Property)
             {
-                if(currentPlayer.getMoney() >= 50)
-                {
-                    /*
-                     * Do what i said i was going to do!
-                     */
+                if(((Property)board[i]).getNumberOfHouses() > 0){
+                    if(((Property)board[i]).getLocation() < 10 || (((Property)board[i]).getLocation() > 20 && ((Property)board[i]).getLocation() < 30)) {
+                        for (int x = 0; x > ((Property) board[i]).getNumberOfHouses(); x++) {
+                           // mapping[i]
+                        }
+                    }
                 }
             }
         }
     }
-
     public static void CardPickup (Player player, int cardType, Player[] players)
     {
 
