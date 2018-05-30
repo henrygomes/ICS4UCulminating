@@ -115,7 +115,7 @@ public class Controller implements Initializable
         state.setD1(dice1);
         state.setD2(dice2);
         int totalRoll = dice1+dice2;
-        totalRoll = 1;//for tseting
+        //totalRoll = 1;//for tseting
         int currentPlayer = state.getNextPlayer();
         state.setCurrentPlayer(state.getNextPlayer());//switches players
         players[currentPlayer].move(totalRoll);//moving the player location object
@@ -274,7 +274,7 @@ public class Controller implements Initializable
             else if (((OtherSpace)board[playerLoc]).getCardValue()>0)//pickup card if is cardpickup
             {
                 System.out.println("Got to card - need to fix card class as it is calling Monopoly");
-                //CardPickup(player, ((OtherSpace)board[playerLoc]).getCardValue(), players);
+                CardPickup(player, players);
             }
         }
         if (hasPlayerLost(player))
@@ -387,7 +387,7 @@ public class Controller implements Initializable
     public static Space[] boardCreation()//initialize board
     {
         try {
-            File file = new File ("src\\Monopoly\\BoardConfig.txt");
+            File file = new File ("BoardConfig.txt");
             Scanner scanFile = new Scanner (file);
             String firstLine = scanFile.nextLine();
             Scanner scan = new Scanner (firstLine);
@@ -707,10 +707,10 @@ public class Controller implements Initializable
         }
     }
 
-    public static void CardPickup (Player player, int cardType, Player[] players)
+    public static void CardPickup (Player player, Player[] players)
     {
         Random rand = new Random();
-        int card = 0;//rand.nextInt(15);
+        int card =rand.nextInt(15);
         
         switch (card){
             case 0://advance to go, if pass go collect 200
@@ -789,6 +789,6 @@ public class Controller implements Initializable
             break;
 
         }
-
+        return;
     }
 }

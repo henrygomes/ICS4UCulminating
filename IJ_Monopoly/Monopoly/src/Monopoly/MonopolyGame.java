@@ -1,7 +1,7 @@
  
 
 /**
- * Write a description of class MonopolyGame here.
+ * Used for command line interface (old version)
  * 
  * @author (your name) 
  * @version (a version number or a date)

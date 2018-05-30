@@ -137,7 +137,7 @@ public class Player
     
     public void moveTo (int toLoc, boolean giveStartMoney)
     {
-        if (location > toLoc && giveStartMoney)
+        if (location >= toLoc && giveStartMoney)
             money+= 200;
             location = toLoc;
     }
