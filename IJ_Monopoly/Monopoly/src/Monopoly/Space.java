@@ -1,4 +1,4 @@
-package Monopoly;
+ 
 
 /**
  * Write a description of class Space here.

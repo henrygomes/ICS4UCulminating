@@ -1,4 +1,4 @@
-package Monopoly;
+ 
 
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;

@@ -1,4 +1,4 @@
-package Monopoly;
+ 
 
 
 public class State
@@ -27,7 +27,7 @@ public class State
         this.nextPlayer = nextPlayer;
     }
 
-    public int getCurrentPlayer() {
+    public  int getCurrentPlayer() {
         return currentPlayer;
     }
 

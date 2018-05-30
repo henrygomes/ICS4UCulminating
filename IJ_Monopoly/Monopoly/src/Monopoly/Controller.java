@@ -1,4 +1,3 @@
-package Monopoly;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,81 +19,46 @@ import javafx.stage.Stage;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
 
-
 public class Controller implements Initializable
 {
     public static Space[] board = boardCreation();//the board is just a space array with properties and is created int eh boardCreation() method
-    State state = new State();//holds some game variales
+    public static State state = new State();//holds some game variales
     public static Player[] players = new Player[0];//the current players in the game
     public static Token[] tokens = new Token[0];
 
-
     @FXML private Label moneyAmount;
-
     @FXML private Label playerTurn;
-
     @FXML private Label rollValue;
-
     @FXML private Label nextTurn;
-
     @FXML private AnchorPane BoardPane;
-
     @FXML private ListView list;
-
     @FXML private Label propName;
-
     @FXML private Label propRent;
-
     @FXML private Label propOwner;
-
     @FXML private Label propPrice;
-
     @FXML private HBox a;
-
     @FXML private HBox b;
-
     @FXML private HBox c;
-
     @FXML private HBox d;
-
     @FXML private HBox e;
-
     @FXML private VBox f;
-
     @FXML private VBox g;
-
     @FXML private VBox h;
-
     @FXML private VBox i;
-
     @FXML private VBox j;
-
     @FXML private VBox k;
-
     @FXML private HBox l;
-
     @FXML private HBox m;
-
     @FXML private HBox n;
-
     @FXML private HBox o;
-
     @FXML private HBox p;
-
     @FXML private HBox q;
-
     @FXML private VBox r;
-
     @FXML private VBox s;
-
     @FXML private VBox t;
-
     @FXML private VBox u;
-
     @FXML private VBox v;
-
     @FXML private javafx.scene.control.Button closeButton;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources)//creates the cariables for the game
@@ -171,7 +135,7 @@ public class Controller implements Initializable
 
     }
 
-    private int roll()//returns a valid random dice roll
+    private static int roll()//returns a valid random dice roll
     {
         int rand = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         return(rand);
@@ -284,7 +248,7 @@ public class Controller implements Initializable
         }
     }
 
-    public void turn(Player player, int utilityMultiplier)//executes the game
+    public static void turn(Player player, int utilityMultiplier)//executes the game
     {
         int playerLoc = players[state.getCurrentPlayer()].getLocation();
         System.out.println(playerLoc);
@@ -322,6 +286,10 @@ public class Controller implements Initializable
         if (fromPlayer.transaction(amount))
         {
             return true;
+        }
+        if (fromPlayer.getValueOfPlayer() < amount )
+        {
+            return false;
         }
         amount -= fromPlayer.getMoney();
         pay (fromPlayer, fromPlayer.getMoney());
@@ -402,6 +370,10 @@ public class Controller implements Initializable
             toPlayer.transaction(amount);
             return true;
         }
+        if (fromPlayer.getValueOfPlayer() < amount )
+        {
+            return false;
+        }
         amount -= fromPlayer.getMoney();
         pay (fromPlayer, toPlayer, fromPlayer.getMoney());
         if (bankrupcy(fromPlayer, amount))
@@ -411,7 +383,6 @@ public class Controller implements Initializable
         }
         return false;
     }
-
 
     public static Space[] boardCreation()//initialize board
     {
@@ -553,12 +524,10 @@ public class Controller implements Initializable
             }
         }
 
-
         if (match == 0){ //if no players have property
             AlertBox.display("Error!", "There Is No One To Trade With!");//calling an alert box warning the user
             return;
         }
-
 
         String currentPlayerName = players[state.getCurrentPlayer()].getName();
         System.out.println("current Player " + currentPlayerName);
@@ -568,7 +537,6 @@ public class Controller implements Initializable
             returnPlayerNum = (returnPlayerNum + 1);
         }
         System.out.println("playerNum: " + returnPlayerNum);
-
 
         getTrade(players[state.getCurrentPlayer()].getProperties(), players[returnPlayerNum].getProperties(), players[state.getCurrentPlayer()].getName(), players[returnPlayerNum].getName(), players[state.getCurrentPlayer()], players[returnPlayerNum]);
     }
@@ -731,96 +699,96 @@ public class Controller implements Initializable
                 if(((Property)board[i]).getNumberOfHouses() > 0){
                     if(((Property)board[i]).getLocation() < 10 || (((Property)board[i]).getLocation() > 20 && ((Property)board[i]).getLocation() < 30)) {
                         for (int x = 0; x > ((Property) board[i]).getNumberOfHouses(); x++) {
-                           // mapping[i]
+                            // mapping[i]
                         }
                     }
                 }
             }
         }
     }
+
     public static void CardPickup (Player player, int cardType, Player[] players)
     {
-
         Random rand = new Random();
-        if (cardType ==1)//chance
-        {
-            int card = rand.nextInt(16);
-            switch (card){
-                case 0://advance to go, if pass go collect 200
-                    player.moveTo(0, true);
-                    break;
-                case 1://advance to Illinois Ave (24), if pass go collect 200
-                    player.moveTo(24, true);
-                    MonopolyGame.land (24, player, -1);
-                    break;
-                case 2://advance to St. Charles Place (11), if pass go collect 200
-                    player.moveTo(11, true);
-                    MonopolyGame.land(11, player, -1);
-                    break;
-                case 3://advance to nearest utility, if owned pay 10x roll, if unowned buy
-                    if (player.getLocation() > 28 || player.getLocation() < 12){
-                        player.moveTo(12, true);
-                        MonopolyGame.land (12, player, 10);
-                    }
-                    else{
-                        player.moveTo(28, true);
-                        MonopolyGame.land (28, player, 10);
-                    }
-                    break;
-                case 4://advance to nearest railroad, pay 2x rental, if unowned buy
-                    break;
-                case 5://get 50
-                    player.addMoney (50);
-                    break;
-                case 6://get out of jail free card
-                    player.newGOOJFCard();
-                    break;
-                case 7://go back 3 spaces
-                    int playerLoc = player.getLocation();
-                    int playerTo = player.getLocation() -3;
-                    if (playerTo <0)
-                        playerTo = 40 + playerTo;
-                    player.moveTo(playerTo, false);
-                    MonopolyGame.land (playerTo, player, -1);
-                    break;
-                case 8://go to jail, dont get 200$
-                    break;
-                case 9://pay 25 for each house, 100 for each hotel
-                    for (int i = 0; i < player.getProperties().size();i++)
-                    {
-
-                    }
-                    break;
-                case 10://pay 15$
-                    MonopolyGame.pay (player, 15);
-                    break;
-                case 11://got to reading railroad, if pass go pay 200$
-                    player.moveTo(5, true);
-                    MonopolyGame.land(5, player, -1);
-                    break;
-                case 12:// go to boardwalk
-                    player.moveTo(39, true);
-                    MonopolyGame.land(39, player, -1);
-                    break;
-                case 13://pay each player 50
-                    for (int i = 0; i <players.length; i++)
-                    {
-                        if (players[i] != player)
-                            MonopolyGame.pay (player, players[i],50);
-
-                    }
-                    break;
-                case 14://collect 150
-                    player.addMoney(150);
-                    break;
-                case 15://collect 100
-                    player.addMoney(100);
-                    break;
+        int card = 0;//rand.nextInt(15);
+        
+        switch (card){
+            case 0://advance to go, if pass go collect 200
+            player.moveTo(0, true);
+            break;
+            case 1://advance to Illinois Ave (24), if pass go collect 200
+            player.moveTo(24, true);
+            turn ( player, -1);
+            break;
+            case 2://advance to St. Charles Place (11), if pass go collect 200
+            player.moveTo(11, true);
+            turn( player, -1);
+            break;
+            case 3://advance to nearest utility, if owned pay 10x roll, if unowned buy
+            if (player.getLocation() > 28 || player.getLocation() < 12){
+                player.moveTo(12, true);
+                turn( player, 10);
             }
-        }
-        else if (cardType == 2)
-        {
+            else{
+                player.moveTo(28, true);
+                turn( player, 10);
+            }
+            break;
+            case 4://advance to nearest railroad, pay 2x rental, if unowned buy
+            if (player.getLocation() < 5 || player.getLocation() >= 35)
+                player.moveTo (5, true);
+            else if( player.getLocation() < 15)
+                player.moveTo(15, true);
+            else if (player.getLocation() < 25)
+                player.moveTo(25, true);
+            else if (player.getLocation() < 35)
+                player.moveTo(35, true);
+            turn (player, -1);
+            break;
+            case 5://get 50
+            player.addMoney (50);
+            break;
+            case 6://get out of jail free card
+            player.newGOOJFCard();
+            break;
+            case 7://go back 3 spaces
+            int playerLoc = player.getLocation();
+            int playerTo = player.getLocation() -3;
+            if (playerTo <0)
+                playerTo = 40 + playerTo;
+            player.moveTo(playerTo, false);
+            turn ( player, -1);
+            break;
+            case 8://go to jail, dont get 200$
+            player.moveTo(30, false);
+            break;
+            case 9://pay 15$
+            pay (player, 15);
+            break;
+            case 10://got to reading railroad, if pass go pay 200$
+            player.moveTo(5, true);
+            turn( player, -1);
+            break;
+            case 11:// go to boardwalk
+            player.moveTo(39, true);
+            turn( player, -1);
+            break;
+            case 12://pay each player 50
+            for (int i = 0; i <players.length; i++)
+            {
+                if (players[i] != player)
+                    MonopolyGame.pay (player, players[i],50);
+
+            }
+            break;
+            case 13://collect 150
+            player.addMoney(150);
+            break;
+            case 14://collect 100
+            player.addMoney(100);
+            break;
 
         }
+
     }
 }
